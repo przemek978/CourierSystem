@@ -19,6 +19,7 @@ namespace CourierSystem.Models
         public int CourierID { get; set; }
         public int StatusId { get; set; }
         public char Size { get; set; }
+        //public int StatusID { get; set; }
 
         public ShipmentStatus Status { get; set; }
         public Courier Courier { get; set; }

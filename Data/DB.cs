@@ -1,4 +1,4 @@
-﻿using CourierSystem.Models;
+using CourierSystem.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;

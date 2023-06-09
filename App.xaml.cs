@@ -22,7 +22,7 @@ namespace CourierSystem
 
             using (var context = DB.GetInstance())
             {
-                if (context.Couriers.Any() && context.People.Any() && !context.Shipments.Any())
+                if (context.Couriers.Any() && context.People.Any() && context.Statuses.Any() && !context.Shipments.Any())
                 {
                     for (int i = 0; i < 3; i++)
                     {
@@ -40,7 +40,7 @@ namespace CourierSystem
                             }
                             break;
                         }
-                        context.Shipments.Add(new Shipment { ShipmentNumber = trackingNumber, CourierID = courier, SenderID = sender, RecipientID = recipient, Size = sizes[i] });
+                        context.Shipments.Add(new Shipment { ShipmentNumber = trackingNumber, CourierID = courier, SenderID = sender, RecipientID = recipient, Size = sizes[i], StatusId = context.Statuses.ToList()[0].Id });
                     }
                     context.SaveChanges();
                 }

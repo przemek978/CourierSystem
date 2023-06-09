@@ -30,8 +30,17 @@ namespace CourierSystem
                         var courier = context.Couriers.ToList()[i].Id;
                         var sender = context.People.ToList()[i].Id;
                         var recipient = context.People.ToList()[(i + 1) % 3].Id;
-
-                        context.Shipments.Add(new Shipment { CourierID = courier, SenderID = sender, RecipientID = recipient, Size = sizes[i] });
+                        long trackingNumber;
+                        while (true)
+                        {
+                            trackingNumber = Shipment.GenerateTrackingNumber();
+                            if (context.Shipments.Any(s => s.ShipmentNumber == trackingNumber))
+                            {
+                                continue;
+                            }
+                            break;
+                        }
+                        context.Shipments.Add(new Shipment { ShipmentNumber = trackingNumber, CourierID = courier, SenderID = sender, RecipientID = recipient, Size = sizes[i] });
                     }
                     context.SaveChanges();
                 }

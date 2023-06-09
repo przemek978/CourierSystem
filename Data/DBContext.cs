@@ -62,6 +62,10 @@ namespace CourierSystem.Data
                 .HasForeignKey(s => s.RecipientID)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Shipment>()
+                .Property(s => s.ShipmentNumber)
+                .ValueGeneratedNever();
+
             base.OnModelCreating(modelBuilder);
         }
     }

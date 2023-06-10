@@ -42,9 +42,9 @@ namespace CourierSystem.Data
                     Statuses.Add(new ShipmentStatus { Status="Wysłana z sortowni"});
                     Statuses.Add(new ShipmentStatus { Status="Przyjęta w oddziale"});
                     Statuses.Add(new ShipmentStatus { Status="Wydana do doręczenia"});
+                    Statuses.Add(new ShipmentStatus { Status="Doręczona"});
                     Statuses.Add(new ShipmentStatus { Status="Odbiorca niedostępny. Próba kolejnego dnia"});
                     Statuses.Add(new ShipmentStatus { Status="Awizo do odbioru w punkcie"});
-                    Statuses.Add(new ShipmentStatus { Status="Doręczona"});
                     SaveChanges();
                 }
             }

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CourierSystem.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -28,6 +30,15 @@ namespace CourierSystem.Data
             return _context;
         }
 
+        public static Shipment SearchShipment(long Number)
+        {
+            return _context.Shipments.FirstOrDefault(s => s.ShipmentNumber == Number);
+
+        }
+        public static ShipmentStatus SearchStatus(Shipment shipment)
+        {
+            return _context.Statuses.FirstOrDefault(s => s.Id == shipment.StatusId);
+        }
         private static string GetConnectionString()
         {
             return ConnectionString;

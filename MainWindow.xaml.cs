@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CourierSystem.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,13 @@ namespace CourierSystem
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Tracking_Click(object sender, RoutedEventArgs e)
+        {
+            ShipTracking shipTracking = new ShipTracking();
+            shipTracking.Show();
+            this.Close();
         }
     }
 }

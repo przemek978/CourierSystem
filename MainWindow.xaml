@@ -1,0 +1,15 @@
+﻿<Window x:Class="CourierSystem.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CourierSystem"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel Margin="0,100,0,100">
+            <Button FontSize="72" Click="Navigate_To_Login">Logowanie do systemu</Button>
+            <Button x:Name="Tracking" FontSize="72" Click="Tracking_Click">Sledzenie przesyłek</Button>
+        </StackPanel>
+    </Grid>
+</Window>

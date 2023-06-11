@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CourierSystem.Data;
+using CourierSystem.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +24,13 @@ namespace CourierSystem.Views
         public Login()
         {
             InitializeComponent();
+        }
+
+        private void ReturnButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
         }
     }
 }

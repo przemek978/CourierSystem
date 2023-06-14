@@ -43,10 +43,18 @@ namespace CourierSystem.Views
                 {
                     DB.AddPerson(recipient);
                 }
+                else
+                {
+                    recipient = r;
+                }
                 Person s = DB.SearchPerson(this.sender.PhoneNumber);
                 if (s == null)
                 {
                     DB.AddPerson(this.sender);
+                }
+                else
+                {
+                    this.sender = s;
                 }
                 Shipment shipment = new Shipment
                 {
@@ -149,7 +157,7 @@ namespace CourierSystem.Views
             }
             if (PickCourier.SelectedIndex>=0)
             {
-                courier = couriers.FirstOrDefault(c => c.Id == PickCourier.SelectedIndex);
+                courier = couriers.FirstOrDefault(c => c.Id == PickCourier.SelectedIndex+1);
             }
             else
             {

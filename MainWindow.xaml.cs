@@ -32,5 +32,12 @@ namespace CourierSystem
             shipTracking.Show();
             this.Close();
         }
+
+        private void Test_Click(object sender, RoutedEventArgs e)
+        {
+            ShipCreate shipCreate = new ShipCreate();
+            shipCreate.Show();
+            this.Close();
+        }
     }
 }

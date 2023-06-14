@@ -31,9 +31,9 @@ namespace CourierSystem.Data
                     Couriers.Add(new Courier { Name = "Janusz" });
                     Couriers.Add(new Courier { Name = "Marek" });
 
-                    People.Add(new Person { FirstName = "Marcin", LastName = "Kaczanowski", Address = "Wiejska 45A, 15-351 Białystok" });
-                    People.Add(new Person { FirstName = "Przemysław", LastName = "Kuczyński", Address = "Zwierzyniecka 7, 15-312 Białystok" });
-                    People.Add(new Person { FirstName = "Jan", LastName = "Jelski", Address = "Wierzbowa 5, 15-743 Białystok" });
+                    People.Add(new Person { FirstName = "Marcin", LastName = "Kaczanowski", Address = "Wiejska 45A, 15-351 Białystok", PhoneNumber = 321654987 });
+                    People.Add(new Person { FirstName = "Przemysław", LastName = "Kuczyński", Address = "Zwierzyniecka 7, 15-312 Białystok", PhoneNumber = 654987321 });
+                    People.Add(new Person { FirstName = "Jan", LastName = "Jelski", Address = "Wierzbowa 5, 15-743 Białystok", PhoneNumber = 654321987 });
 
                     Statuses.Add(new ShipmentStatus { Status="Przygotowanie do nadania"});
                     Statuses.Add(new ShipmentStatus { Status="Odebrana przez kuriera"});

@@ -52,7 +52,6 @@ namespace CourierSystem.Data
                     People.Add(new Person { FirstName = "Przemysław", LastName = "Kuczyński", Address = "Zwierzyniecka 7, 15-312 Białystok", PhoneNumber = 654987321 });
                     People.Add(new Person { FirstName = "Jan", LastName = "Jelski", Address = "Wierzbowa 5, 15-743 Białystok", PhoneNumber = 654321987 });
 
-<<<<<<< HEAD
                     Statuses.Add(new ShipmentStatus { Status="Przygotowanie do nadania"});
                     Statuses.Add(new ShipmentStatus { Status="Odebrana przez kuriera"});
                     Statuses.Add(new ShipmentStatus { Status="W drodze"});

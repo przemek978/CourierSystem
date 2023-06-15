@@ -1,0 +1,23 @@
+﻿<Window x:Class="CourierSystem.Views.ShipIndex"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CourierSystem.Views"
+        mc:Ignorable="d"
+        Title="ShipIndex" Height="450" Width="1350">
+    <Grid>
+        <ListView Margin="5" Name="ListViewShipment">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Numer Przesyłki" DisplayMemberBinding="{Binding ShipmentNumber}" Width="110"/>
+                    <GridViewColumn Header="Odbiorca" DisplayMemberBinding="{Binding Recipient}" Width="400"/>
+                    <GridViewColumn Header="Nadawca" DisplayMemberBinding="{Binding Sender}" Width="400"/>
+                    <GridViewColumn Header="Kurier" DisplayMemberBinding="{Binding Courier}" Width="110"/>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="260"/>
+                    <GridViewColumn Header="Rozmiar" DisplayMemberBinding="{Binding Size }" Width="50"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

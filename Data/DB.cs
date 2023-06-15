@@ -46,6 +46,21 @@ namespace CourierSystem.Data
             return _context.Couriers.ToList();
         }
 
+        public static List<Person> GetPeople()
+        {
+            return _context.People.ToList();
+        }
+
+        public static List<Shipment> GetShipments()
+        {
+            return _context.Shipments.ToList();
+        }
+
+        public static List<Shipment> GetShipmentsWithOtherTables()
+        {
+            return _context.Shipments.Include(p =>p.Sender).Include(r => r.Recipient).Include(r => r.Status).Include(r => r.Courier).ToList();
+        }
+
         public static Person SearchPerson(int number)
         {
             return _context.People.FirstOrDefault(p => p.PhoneNumber == number);

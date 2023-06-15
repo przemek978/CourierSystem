@@ -21,6 +21,7 @@ namespace CourierSystem.Data
         public DbSet<Person> People { get; set; }
         public DbSet<ShipmentStatus> Statuses { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         public DBContext(DbContextOptions<DBContext> options) : base(options)
         {
@@ -91,6 +92,11 @@ namespace CourierSystem.Data
             modelBuilder.Entity<Shipment>()
                 .Property(s => s.ShipmentNumber)
                 .ValueGeneratedNever();
+
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.Shipment)
+                .WithMany(s => s.Messages)
+                .HasForeignKey(m => m.ShipmentNumber);
 
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<Courier>().ToTable("Couriers");

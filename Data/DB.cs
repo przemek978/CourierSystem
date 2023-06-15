@@ -61,6 +61,11 @@ namespace CourierSystem.Data
             return user;
         }
 
+        public static void SendMessage(Message message)
+        {
+            _context.Messages.Add(message);
+            _context.SaveChanges();
+        }
         private static string GetConnectionString()
         {
             return ConnectionString;

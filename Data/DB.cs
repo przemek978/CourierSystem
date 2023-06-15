@@ -17,7 +17,7 @@ namespace CourierSystem.Data
     public static class DB
     {
         private static DBContext _context;
-        private const string ConnectionString = @"Data Source=DESKTOP-IEHQTFA;Initial Catalog=CourierDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
 
         public static DBContext GetInstance()
@@ -37,6 +37,12 @@ namespace CourierSystem.Data
             return _context.Shipments.FirstOrDefault(s => s.ShipmentNumber == Number);
 
         }
+
+        public static List<Shipment> GetShipmentsWithOtherTables()
+        {
+            return _context.Shipments.Include(p => p.Sender).Include(r => r.Recipient).Include(r => r.Status).Include(r => r.Courier).ToList();
+        }
+
         public static ShipmentStatus SearchStatus(Shipment shipment)
         {
             return _context.Statuses.FirstOrDefault(s => s.Id == shipment.StatusId);

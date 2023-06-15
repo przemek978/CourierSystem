@@ -50,7 +50,7 @@ namespace CourierSystem.Views
             }
             else
             {
-                win = new CourierPanel();
+                win = new CourierPanel(user);
             }
             win.Show();
             this.Close();

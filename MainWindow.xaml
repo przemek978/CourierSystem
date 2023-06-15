@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <StackPanel Margin="0,100,0,100">
-            <Button FontSize="72">Logowanie do systemu</Button>
+            <Button FontSize="72" Click="Navigate_To_Login">Logowanie do systemu</Button>
             <Button x:Name="Tracking" FontSize="72" Click="Tracking_Click">Sledzenie przesyłek</Button>
         </StackPanel>
     </Grid>

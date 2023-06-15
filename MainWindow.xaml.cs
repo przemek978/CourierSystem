@@ -32,5 +32,12 @@ namespace CourierSystem
             shipTracking.Show();
             this.Close();
         }
+
+        private void Navigate_To_Login(object sender, RoutedEventArgs e)
+        {
+            Login loginView = new Login();
+            loginView.Show();
+            this.Close();
+        }
     }
 }

@@ -1,4 +1,8 @@
 ﻿using CourierSystem.Models;
+<<<<<<< HEAD
+=======
+using Microsoft.AspNetCore.Identity;
+>>>>>>> b062582e0d771dcdbe6c917fe1c426fb9889e72b
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +20,7 @@ namespace CourierSystem.Data
     public static class DB
     {
         private static DBContext _context;
-        private const string ConnectionString = @"Data Source=(localdb)\ProjektDB;Database=CourierDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
 
         public static DBContext GetInstance()
@@ -35,10 +40,43 @@ namespace CourierSystem.Data
             return _context.Shipments.FirstOrDefault(s => s.ShipmentNumber == Number);
 
         }
+
+        public static List<Shipment> GetShipmentsWithOtherTables()
+        {
+            return _context.Shipments.Include(p => p.Sender).Include(r => r.Recipient).Include(r => r.Status).Include(r => r.Courier).ToList();
+        }
+
         public static ShipmentStatus SearchStatus(Shipment shipment)
         {
             return _context.Statuses.FirstOrDefault(s => s.Id == shipment.StatusId);
         }
+
+
+        public static User ValidateUser(string username,string password)
+        {
+            var hasher = new PasswordHasher<User>();
+            var user= _context.Users.FirstOrDefault(u=> u.Username == username);
+
+            if (user == null)
+            {
+                return null;
+            }
+            var passwordValid = hasher.VerifyHashedPassword(null, user.Password, password) == PasswordVerificationResult.Success;
+
+            if (!passwordValid)
+            {
+                return null;
+            }
+
+            return user;
+        }
+
+        public static void SendMessage(Message message)
+        {
+            _context.Messages.Add(message);
+            _context.SaveChanges();
+        }
+
         private static string GetConnectionString()
         {
             return ConnectionString;

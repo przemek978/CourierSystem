@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using System.Windows.Input;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
 
 namespace CourierSystem.Data
 {
@@ -19,6 +21,8 @@ namespace CourierSystem.Data
         public DbSet<Courier> Couriers { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<ShipmentStatus> Statuses { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         public DBContext(DbContextOptions<DBContext> options) : base(options)
         {
@@ -48,6 +52,7 @@ namespace CourierSystem.Data
                     People.Add(new Person { FirstName = "Przemysław", LastName = "Kuczyński", Address = "Zwierzyniecka 7, 15-312 Białystok", PhoneNumber = 654987321 });
                     People.Add(new Person { FirstName = "Jan", LastName = "Jelski", Address = "Wierzbowa 5, 15-743 Białystok", PhoneNumber = 654321987 });
 
+<<<<<<< HEAD
                     Statuses.Add(new ShipmentStatus { Status="Przygotowanie do nadania"});
                     Statuses.Add(new ShipmentStatus { Status="Odebrana przez kuriera"});
                     Statuses.Add(new ShipmentStatus { Status="W drodze"});
@@ -67,11 +72,14 @@ namespace CourierSystem.Data
             }
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //optionsBuilder.UseSqlServer(@"Data Source=(localdb)\\ProjektDB;Initial Catalog=CourierDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-            base.OnConfiguring(optionsBuilder);
-        }
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    //optionsBuilder.UseSqlServer(@"Data Source=(localdb)\\ProjektDB;Initial Catalog=CourierDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        //    base.OnConfiguring(optionsBuilder);
+        //}
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Shipment>()
@@ -89,6 +97,15 @@ namespace CourierSystem.Data
             modelBuilder.Entity<Shipment>()
                 .Property(s => s.ShipmentNumber)
                 .ValueGeneratedNever();
+
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.Shipment)
+                .WithMany(s => s.Messages)
+                .HasForeignKey(m => m.ShipmentNumber);
+
+            modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<Courier>().ToTable("Couriers");
+            //modelBuilder.Entity<Courier>().ToTable("Couriers");
 
             base.OnModelCreating(modelBuilder);
         }

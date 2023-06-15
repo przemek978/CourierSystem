@@ -1,0 +1,92 @@
+﻿<Window x:Class="CourierSystem.Views.ShipCreate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CourierSystem.Views"
+        mc:Ignorable="d"
+        Title="Nadaj przesyłkę" Height="500" Width="800">
+    <Window.Resources>
+        <!-- One style for each *type* of control on the window -->
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+
+    </Window.Resources>
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <GroupBox  Margin="5" Header="Wybierz rozmiar paczki:">
+                <DockPanel>
+                    <RadioButton Name="size0" GroupName="Size" Content="Mała - max 8x20x20 cm do 10 kg" Margin="5"/>
+                    <RadioButton Name="size1" GroupName="Size" Content="Średnia - max 20x40x60 cm do 25 kg" Margin="0 5 5 5"/>
+                    <RadioButton Name="size2" GroupName="Size" Content="Duża - max 60x60x70 cm do 35 kg" Margin="0 5 5 5"/>
+                </DockPanel>
+            </GroupBox>
+        </DockPanel>
+        <GroupBox DockPanel.Dock="Top" Margin="5" Header="Wpisz dane odbiorcy:">
+            <Grid>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center" Margin="5" >Imię:</Label>
+                <TextBox Grid.Column="0"  Grid.Row="1"  Margin="5" Name="RecipientFirstName"/>
+                <Label Grid.Column="1" Grid.Row="0" VerticalContentAlignment="Center" Margin="5" >Nazwisko</Label>
+                <TextBox Grid.Column="1"  Grid.Row="1"  Margin="5" Name="RecipientLastName"/>
+                <Label Grid.Column="0" Grid.Row="2" VerticalContentAlignment="Center" Margin="5" >Adres:</Label>
+                <TextBox Grid.Column="0"  Grid.Row="3"  Margin="5" Name="RecipientAddress"/>
+                <Label Grid.Column="1" Grid.Row="2" VerticalContentAlignment="Center" Margin="5" >Nr telefonu:</Label>
+                <TextBox Grid.Column="1"  Grid.Row="3"  Margin="5" Name="RecipientNumber"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox DockPanel.Dock="Top" Margin="5" Header="Wpisz dane nadawcy:">
+            <Grid>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center" Margin="5" >Imię:</Label>
+                <TextBox Grid.Column="0"  Grid.Row="1"  Margin="5" Name="SenderFirstName"/>
+                <Label Grid.Column="1" Grid.Row="0" VerticalContentAlignment="Center" Margin="5" >Nazwisko</Label>
+                <TextBox Grid.Column="1"  Grid.Row="1"  Margin="5" Name="SenderLastName"/>
+                <Label Grid.ColumnSpan="2" Grid.Row="2" VerticalContentAlignment="Center" Margin="5" >Adres:</Label>
+                <TextBox Grid.Column="0"  Grid.Row="3"  Margin="5" Name="SenderAddress"/>
+                <Label Grid.Column="1" Grid.Row="2" VerticalContentAlignment="Center" Margin="5" >Nr telefonu:</Label>
+                <TextBox Grid.Column="1"  Grid.Row="3"  Margin="5" Name="SenderNumber"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox DockPanel.Dock="Top" Margin="5" Header="Przydziel kuriera:">
+            <StackPanel>
+                <ComboBox Name="PickCourier" IsEditable="True" IsTextSearchEnabled="True" TextSearch.TextPath="Name" Margin="4">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+        </GroupBox>
+        <Grid DockPanel.Dock="Top" Margin="0 0 5 5">
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Zatwierdź" Click="ConfirmButton_Click" MinWidth="70" MinHeight="30"/>
+                <Button Content="Anuluj" Click="CancelButton_Click" MinWidth="50" MinHeight="30"/>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+
+</Window>

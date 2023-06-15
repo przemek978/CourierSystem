@@ -33,6 +33,14 @@ namespace CourierSystem
             this.Close();
         }
 
+        private void Test_Click(object sender, RoutedEventArgs e)
+        {
+            ShipIndex shipTest = new ShipIndex();
+            shipTest.Show();
+            this.Close();
+        }
+    }
+
         private void Navigate_To_Login(object sender, RoutedEventArgs e)
         {
             Login loginView = new Login();

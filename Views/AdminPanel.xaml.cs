@@ -24,11 +24,11 @@ namespace CourierSystem.Views
             InitializeComponent();
         }
 
-        private void Shipment_Managing_Button_Click(object sender, RoutedEventArgs e)
+        private void ShipMange_Click(object sender, RoutedEventArgs e)
         {
-            AdminShipmentManaging window = new AdminShipmentManaging();
+            ShipIndex window = new ShipIndex();
             window.Show();
+            this.Close();
         }
-
     }
 }

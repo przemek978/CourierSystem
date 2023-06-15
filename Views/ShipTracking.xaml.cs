@@ -29,35 +29,17 @@ namespace CourierSystem.Views
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            long number;
-            long.TryParse(NumberTextBox.Text, out number);
-            shipment = DB.SearchShipment(number);
+            shipment = DB.SearchShipment(long.Parse(NumberTextBox.Text));
 
             StatusText.Text = "Status twojej przesyłki";
             if (shipment != null)
             {
                 var status = DB.SearchStatus(shipment);
                 ResultText.Text = status.Status;
-                InfoPanel.Visibility = Visibility.Visible;
             }
             else
             {
-                MessageBox.Show("Przesyłka nie istnieje sprawdź numer przesyłki");
-            }
-        }
-
-        private void SendButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (MessageText.Text != "")
-            {
-                var message = new Message(MessageText.Text, shipment.ShipmentNumber);
-                DB.SendMessage(message);
-                MessageBox.Show("Wiadomość została wysłana");
-                MessageText.Text = "";
-            }
-            else
-            {
-                MessageBox.Show("Pole z wiadomością nie może być puste");
+                ResultText.Text = "Przesyłka nie istnieje sprawdź numer przesyłki";
             }
         }
     }

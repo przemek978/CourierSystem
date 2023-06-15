@@ -1,4 +1,4 @@
-using CourierSystem.Views;
+﻿using CourierSystem.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,17 +33,18 @@ namespace CourierSystem
             this.Close();
         }
 
-<<<<<<< HEAD
-        private void Navigate_To_Login(object sender, RoutedEventArgs e)
-        {
-            Login loginView = new Login();
-            loginView.Show();
-=======
         private void Test_Click(object sender, RoutedEventArgs e)
         {
             ShipIndex shipTest = new ShipIndex();
             shipTest.Show();
->>>>>>> efd350a9d3dd48f474777d275d2a830a8636ea9a
+            this.Close();
+        }
+    
+
+        private void Navigate_To_Login(object sender, RoutedEventArgs e)
+        {
+            Login loginView = new Login();
+            loginView.Show();
             this.Close();
         }
     }

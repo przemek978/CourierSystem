@@ -28,6 +28,7 @@ namespace CourierSystem.Data
         {
             try
             {
+
                 Database.EnsureCreated();
                 if (!Users.Any())
                 {

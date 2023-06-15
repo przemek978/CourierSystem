@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
-using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -71,12 +70,6 @@ namespace CourierSystem.Data
 
         }
 
-
-        public static List<Shipment> GetShipmentsWithOtherTables()
-        {
-            return _context.Shipments.Include(p => p.Sender).Include(r => r.Recipient).Include(r => r.Status).Include(r => r.Courier).ToList();
-        }
-
         public static void DeleteShipment(Shipment shipment)
         {
             _context.Shipments.Remove(shipment);
@@ -88,30 +81,6 @@ namespace CourierSystem.Data
         {
             return _context.Statuses.FirstOrDefault(s => s.Id == shipment.StatusId);
         }
-
-
-        public static User ValidateUser(string username,string password)
-        {
-            var hasher = new PasswordHasher<User>();
-            var user= _context.Users.FirstOrDefault(u=> u.Username == username);
-
-            if (user == null)
-            {
-                return null;
-            }
-            var passwordValid = hasher.VerifyHashedPassword(null, user.Password, password) == PasswordVerificationResult.Success;
-
-            if (!passwordValid)
-            {
-                return null;
-            }
-
-            return user;
-        }
-
-        public static void SendMessage(Message message)
-        {
-            _context.Messages.Add(message);
 
         public static List<ShipmentStatus> GetStatuses()
         {
@@ -138,7 +107,30 @@ namespace CourierSystem.Data
             _context.Add(person);
             _context.SaveChanges();
         }
+        public static User ValidateUser(string username,string password)
+        {
+            var hasher = new PasswordHasher<User>();
+            var user= _context.Users.FirstOrDefault(u=> u.Username == username);
 
+            if (user == null)
+            {
+                return null;
+            }
+            var passwordValid = hasher.VerifyHashedPassword(null, user.Password, password) == PasswordVerificationResult.Success;
+
+            if (!passwordValid)
+            {
+                return null;
+            }
+
+            return user;
+        }
+
+        public static void SendMessage(Message message)
+        {
+            _context.Messages.Add(message);
+            _context.SaveChanges();
+        }
         private static string GetConnectionString()
         {
             return ConnectionString;

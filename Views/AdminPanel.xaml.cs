@@ -23,5 +23,12 @@ namespace CourierSystem.Views
         {
             InitializeComponent();
         }
+
+        private void Shipment_Managing_Button_Click(object sender, RoutedEventArgs e)
+        {
+            AdminShipmentManaging window = new AdminShipmentManaging();
+            window.Show();
+        }
+
     }
 }

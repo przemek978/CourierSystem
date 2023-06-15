@@ -1,4 +1,4 @@
-﻿using CourierSystem.Data;
+using CourierSystem.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

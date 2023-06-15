@@ -1,4 +1,5 @@
 ﻿using CourierSystem.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using Microsoft.Extensions.Configuration;
@@ -106,21 +107,6 @@ namespace CourierSystem.Data
             _context.Add(person);
             _context.SaveChanges();
         }
-
-        private static string GetConnectionString()
-        {
-            return ConnectionString;
-        }
-        public static List<Shipment> GetShipmentsWithOtherTables()
-        {
-            return _context.Shipments.Include(p => p.Sender).Include(r => r.Recipient).Include(r => r.Status).Include(r => r.Courier).ToList();
-        }
-
-        public static ShipmentStatus SearchStatus(Shipment shipment)
-        {
-            return _context.Statuses.FirstOrDefault(s => s.Id == shipment.StatusId);
-        }
-
         public static User ValidateUser(string username,string password)
         {
             var hasher = new PasswordHasher<User>();
@@ -149,6 +135,5 @@ namespace CourierSystem.Data
         {
             return ConnectionString;
         }
-    
     }
 }

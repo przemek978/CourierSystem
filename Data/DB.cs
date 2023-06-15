@@ -10,6 +10,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CourierSystem.Data
 {
@@ -36,9 +37,53 @@ namespace CourierSystem.Data
             return _context.Shipments.FirstOrDefault(s => s.ShipmentNumber == Number);
         }
 
+        public static void AddShipment(Shipment shipment)
+        {
+            _context.Add(shipment);
+            _context.SaveChanges();
+        }
+
+        public static List<Shipment> GetShipmentsWithOtherTables()
+        {
+            return _context.Shipments.Include(p => p.Sender).Include(r => r.Recipient).Include(r => r.Status).Include(r => r.Courier).ToList();
+        }
+
+        public static void EditShipment(Shipment shipment)
+        {
+            _context.Attach(shipment).State = EntityState.Modified;
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (SearchShipment(shipment.ShipmentNumber) == null)
+                {
+                    MessageBox.Show("Nie znaleziono zamówienia");
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+        }
+
+        public static void DeleteShipment(Shipment shipment)
+        {
+            _context.Shipments.Remove(shipment);
+            _context.SaveChanges();
+        }
+
+
         public static ShipmentStatus SearchStatus(Shipment shipment)
         {
             return _context.Statuses.FirstOrDefault(s => s.Id == shipment.StatusId);
+        }
+
+        public static List<ShipmentStatus> GetStatuses()
+        {
+            return _context.Statuses.ToList();
         }
 
         public static List<Courier> GetCouriers()
@@ -51,16 +96,6 @@ namespace CourierSystem.Data
             return _context.People.ToList();
         }
 
-        public static List<Shipment> GetShipments()
-        {
-            return _context.Shipments.ToList();
-        }
-
-        public static List<Shipment> GetShipmentsWithOtherTables()
-        {
-            return _context.Shipments.Include(p =>p.Sender).Include(r => r.Recipient).Include(r => r.Status).Include(r => r.Courier).ToList();
-        }
-
         public static Person SearchPerson(int number)
         {
             return _context.People.FirstOrDefault(p => p.PhoneNumber == number);
@@ -69,12 +104,6 @@ namespace CourierSystem.Data
         public static void AddPerson(Person person)
         {
             _context.Add(person);
-            _context.SaveChanges();
-        }
-
-        public static void AddShipment(Shipment shipment)
-        {
-            _context.Add(shipment);
             _context.SaveChanges();
         }
 

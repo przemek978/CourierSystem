@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CourierSystem.Data;
 using CourierSystem.Models;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CourierSystem.Views
 {
@@ -31,13 +33,20 @@ namespace CourierSystem.Views
             public string Size { get; set; }
         }
 
-        List<ShipmentView> shipmentsViews;
-        List<Shipment> shipments;
+        private List<ShipmentView> shipmentsViews;
+        private List<Shipment> shipments;
+        private string selectedShipmentNumber="";
+        private Shipment shipmentToChange;
         public ShipIndex()
         {
             InitializeComponent();
-            shipments = DB.GetShipmentsWithOtherTables();
+            RefreshShipmentListView();
+        }
+
+        private void RefreshShipmentListView()
+        {
             shipmentsViews = new List<ShipmentView>();
+            shipments = DB.GetShipmentsWithOtherTables();
             foreach (var ship in shipments)
             {
                 shipmentsViews.Add(
@@ -52,6 +61,68 @@ namespace CourierSystem.Views
                     });
             }
             ListViewShipment.ItemsSource = shipmentsViews;
+        }
+        private void ListViewShipment_ItemClicked(object sender, SelectionChangedEventArgs e)
+        {
+            ListView listView = (ListView)sender;
+            if (listView.SelectedItem != null)
+            {
+                ShipmentView selectedShipmentView = (ShipmentView)listView.SelectedItem;
+
+                selectedShipmentNumber = selectedShipmentView.ShipmentNumber;
+            }
+        }
+        
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(selectedShipmentNumber.IsNullOrEmpty())
+            {
+                MessageBox.Show("Najpierw wybierz wiersz, który chcesz edytować");
+            }
+            else {
+                shipmentToChange = DB.SearchShipment((long)Convert.ToUInt64(selectedShipmentNumber));
+                if (shipmentToChange != null)
+                {
+                    ShipEdit shipEdit = new ShipEdit(shipmentToChange);
+                    shipEdit.Show();
+                    RefreshShipmentListView();
+                }
+                else
+                {
+                    MessageBox.Show("Coś poszło nie tak, operacja anulowana.");
+                }
+            }
+        }
+
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshShipmentListView();
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedShipmentNumber.IsNullOrEmpty())
+            {
+                MessageBox.Show("Najpierw wybierz, który chcesz usunąć");
+            }
+            else
+            {
+                shipmentToChange = DB.SearchShipment((long)Convert.ToUInt64(selectedShipmentNumber));
+                if( shipmentToChange != null)
+                {
+                    if (MessageBox.Show("Czy na pewno chcesz usunąć zamówienie z nr: " + selectedShipmentNumber + "?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                    {
+                        DB.DeleteShipment(shipmentToChange);
+                        MessageBox.Show("Usunięto pomyślnie");
+                        RefreshShipmentListView();
+                    }
+                }
+                else{
+                    MessageBox.Show("Coś poszło nie tak, operacja anulowana.");
+                }
+
+            }
+
         }
     }
 }

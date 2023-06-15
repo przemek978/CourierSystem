@@ -5,9 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourierSystem.Views"
         mc:Ignorable="d"
-        Title="ShipIndex" Height="450" Width="1350">
+        Title="Lista przesyłek" Height="450" Width="1360">
     <Grid>
-        <ListView Margin="5" Name="ListViewShipment">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+            <Button Content="Edytuj" Click="EditButton_Click" MinWidth="60" MinHeight="30"/>
+            <Button Content="Usuń" Click="DeleteButton_Click" MinWidth="50" MinHeight="30"/>
+            <Button Content="Odświerz" Click="RefreshButton_Click" MinWidth="60" MinHeight="30"/>
+        </StackPanel>
+        <ListView Grid.Row="1" Margin="5" Name="ListViewShipment" SelectionChanged="ListViewShipment_ItemClicked">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Numer Przesyłki" DisplayMemberBinding="{Binding ShipmentNumber}" Width="110"/>

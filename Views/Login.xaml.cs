@@ -21,16 +21,46 @@ namespace CourierSystem.Views
     /// </summary>
     public partial class Login : Window
     {
+        private User user;
         public Login()
         {
             InitializeComponent();
         }
 
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            var user=DB.ValidateUser(Username.Text, password.Password);
+            if (user == null)
+            {
+                MessageBox.Show("Błędny email lub haslo");
+            }
+            else
+            {
+                this.user = user;
+                OpenNextView();
+            }
+        }
+
+        public void OpenNextView()
+        {
+            Window win;
+            if (user.Role=="Admin")
+            {
+                win = new AdminPanel();
+            }
+            else
+            {
+                win = new CourierPanel(user);
+            }
+            win.Show();
+            this.Close();
+        }
         private void ReturnButton_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close();
         }
+
     }
 }

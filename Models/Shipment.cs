@@ -25,6 +25,8 @@ namespace CourierSystem.Models
         public Person Sender { get; set; }
         public Person Recipient { get; set; }
 
+        public ICollection<Message> Messages{ get; set; }
+
         public static long GenerateTrackingNumber()
         {
             Random random = new Random();

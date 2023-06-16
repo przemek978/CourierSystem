@@ -9,18 +9,30 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBox Name="SearchCourierShipment" Grid.Row="0" FontSize="24" TextChanged="SearchBox_TextChanged" ></TextBox>
-        <ListView Grid.Row="1" Name="ListViewCourierShipment">
-            <ListView.View>
-            <GridView>
-                <GridViewColumn Header="Numer Przesyłki" DisplayMemberBinding="{Binding ShipmentNumber}" Width="110"/>
-                <GridViewColumn Header="Odbiorca" DisplayMemberBinding="{Binding Recipient}" Width="400"/>
-                <GridViewColumn Header="Nadawca" DisplayMemberBinding="{Binding Sender}" Width="400"/>
-                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="260"/>
-                <GridViewColumn Header="Rozmiar" DisplayMemberBinding="{Binding Size }" Width="50"/>
-            </GridView>
+
+        <Grid Grid.Row="0"  Margin="0,5,5,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Zmiana statusu przesyłki" FontSize="24" MinWidth="280" TextAlignment="Center" HorizontalAlignment="Left"/>
+            <ComboBox Grid.Column="1" x:Name="StatusCombo" FontSize="24"  Margin="0,0,20,0" ItemsSource="{Binding statuses}" DisplayMemberPath="Status" HorizontalAlignment="Stretch"></ComboBox>
+            <Button Grid.Column="2" x:Name="StatusSubmit" Content="Potwierdz" MinWidth="60" MinHeight="30" Click="StatusSubmit_Click" HorizontalAlignment="Stretch"/>
+        </Grid>
+        <TextBox Name="SearchCourierShipment" Grid.Row="1" FontSize="24" TextChanged="SearchBox_TextChanged" ></TextBox>
+        <ListView Grid.Row="2" Name="ListViewCourierShipment" SelectionChanged="ListViewShipment_ItemClicked">
+            <ListView.View >
+                <GridView>
+                    <GridViewColumn Header="Numer Przesyłki" DisplayMemberBinding="{Binding ShipmentNumber}" Width="110"/>
+                    <GridViewColumn Header="Odbiorca" DisplayMemberBinding="{Binding Recipient}" Width="400"/>
+                    <GridViewColumn Header="Nadawca" DisplayMemberBinding="{Binding Sender}" Width="400"/>
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="260"/>
+                    <GridViewColumn Header="Rozmiar" DisplayMemberBinding="{Binding Size }" Width="50"/>
+                </GridView>
             </ListView.View>
         </ListView>
     </Grid>

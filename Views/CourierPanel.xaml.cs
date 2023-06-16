@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CourierSystem.Views
 {
@@ -32,6 +33,9 @@ namespace CourierSystem.Views
 
         private List<ShipmentCourierView> shipmentsViews;
         private List<Shipment> shipments;
+        private List<ShipmentStatus> statuses;
+        private string selectedShipmentNumber = "";
+        private Shipment shipmentToChange;
         private Models.User user;
         public CourierPanel(Models.User user)
         {
@@ -42,9 +46,9 @@ namespace CourierSystem.Views
 
         private void RefreshShipmentListView(String contains)
         {
-            shipmentsViews = null;
             shipmentsViews = new List<ShipmentCourierView>();
             shipments = DB.GetShipmentsWithOtherTables();
+            statuses = DB.GetStatuses();
             foreach (var ship in shipments)
             {
                 if (ship.CourierID == user.Id && ship.ShipmentNumber.ToString().Contains(contains))
@@ -61,12 +65,51 @@ namespace CourierSystem.Views
                 }
             }
             ListViewCourierShipment.ItemsSource = shipmentsViews;
+            StatusCombo.ItemsSource = statuses;
+            ListViewCourierShipment.Items.Refresh();
+            DataContext = this;
+        }
+
+        private void ListViewShipment_ItemClicked(object sender, SelectionChangedEventArgs e)
+        {
+            ListView listView = (ListView)sender;
+            if (listView.SelectedItem != null)
+            {
+                ShipmentCourierView selectedShipmentView = (ShipmentCourierView)listView.SelectedItem;
+                selectedShipmentNumber = selectedShipmentView.ShipmentNumber;
+                var ship = DB.SearchShipment((long)Convert.ToUInt64(selectedShipmentNumber));
+                StatusCombo.SelectedIndex = StatusCombo.Items.Cast<ShipmentStatus>().ToList().FindIndex(item => item.Status == ship.Status.Status);
+            }
         }
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             String text = SearchCourierShipment.Text;
             RefreshShipmentListView(text);
+        }
+
+        private void StatusSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedShipmentNumber.IsNullOrEmpty())
+            {
+                MessageBox.Show("Najpierw wybierz element, ktoremu chcesz zmienić status");
+            }
+            else
+            {
+                shipmentToChange = DB.SearchShipment((long)Convert.ToUInt64(selectedShipmentNumber));
+                if (shipmentToChange != null)
+                {
+                    shipmentToChange.Status = (ShipmentStatus)StatusCombo.SelectedItem;
+                    DB.EditShipment(shipmentToChange);
+                    //MessageBox.Show("Zmieniono status");
+                    RefreshShipmentListView("");
+                }
+                else
+                {
+                    MessageBox.Show("Coś poszło nie tak, operacja anulowana.");
+                }
+
+            }
         }
     }
     

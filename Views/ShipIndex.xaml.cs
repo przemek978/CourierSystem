@@ -35,6 +35,7 @@ namespace CourierSystem.Views
 
         private List<ShipmentView> shipmentsViews;
         private List<Shipment> shipments;
+        private List<ShipmentStatus> statuses;
         private string selectedShipmentNumber="";
         private Shipment shipmentToChange;
         public ShipIndex()
@@ -48,6 +49,7 @@ namespace CourierSystem.Views
         {
             shipmentsViews = new List<ShipmentView>();
             shipments = DB.GetShipmentsWithOtherTables();
+            statuses = DB.GetStatuses();
             foreach (var ship in shipments)
             {
                 shipmentsViews.Add(
@@ -62,6 +64,7 @@ namespace CourierSystem.Views
                     });
             }
             ListViewShipment.ItemsSource = shipmentsViews;
+            StatusCombo.ItemsSource = statuses;
             ListViewShipment.Items.Refresh();
             DataContext = this;
 
@@ -72,8 +75,9 @@ namespace CourierSystem.Views
             if (listView.SelectedItem != null)
             {
                 ShipmentView selectedShipmentView = (ShipmentView)listView.SelectedItem;
-
                 selectedShipmentNumber = selectedShipmentView.ShipmentNumber;
+                var ship= DB.SearchShipment((long)Convert.ToUInt64(selectedShipmentNumber));
+                StatusCombo.SelectedIndex = StatusCombo.Items.Cast<ShipmentStatus>().ToList().FindIndex(item => item.Status == ship.Status.Status);
             }
         }
         
@@ -120,7 +124,30 @@ namespace CourierSystem.Views
                 }
 
             }
+        }
 
+        private void StatusSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedShipmentNumber.IsNullOrEmpty())
+            {
+                MessageBox.Show("Najpierw wybierz element, ktoremu chcesz zmienić status");
+            }
+            else
+            {
+                shipmentToChange = DB.SearchShipment((long)Convert.ToUInt64(selectedShipmentNumber));
+                if (shipmentToChange != null)
+                {
+                    shipmentToChange.Status = (ShipmentStatus)StatusCombo.SelectedItem;
+                    DB.EditShipment(shipmentToChange);
+                    //MessageBox.Show("Zmieniono status");
+                    RefreshShipmentListView();
+                }
+                else
+                {
+                    MessageBox.Show("Coś poszło nie tak, operacja anulowana.");
+                }
+
+            }
         }
     }
 }

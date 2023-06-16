@@ -14,7 +14,6 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
             <Button Content="Edytuj" Click="EditButton_Click" MinWidth="60" MinHeight="30"/>
             <Button Content="Usuń" Click="DeleteButton_Click" MinWidth="50" MinHeight="30"/>
-            <Button Content="Odświerz" Click="RefreshButton_Click" MinWidth="60" MinHeight="30"/>
         </StackPanel>
         <ListView Grid.Row="1" Margin="5" Name="ListViewShipment" SelectionChanged="ListViewShipment_ItemClicked">
             <ListView.View>

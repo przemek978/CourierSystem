@@ -25,7 +25,8 @@ namespace CourierSystem.Views
         Shipment shipmentToChange;
         private List<Courier> couriers;
         private List<ShipmentStatus> statuses;
-        public ShipEdit(Shipment shipment)
+        private Window window;
+        public ShipEdit(Shipment shipment, Window window)
         {
             InitializeComponent();
             this.shipmentToChange = shipment;
@@ -35,6 +36,7 @@ namespace CourierSystem.Views
             PickStatus.ItemsSource = statuses;
             CourierHeader.Header = "Zmień kuriera z "+couriers.ElementAt(shipment.CourierID-1).Name+" na:";
             StatusHeader.Header = "Zmień status z "+statuses.ElementAt(shipment.StatusId-1).Status+" na:";
+            this.window = window;
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
@@ -48,6 +50,7 @@ namespace CourierSystem.Views
                 shipmentToChange.StatusId = statuses.FirstOrDefault(c => c.Id == PickStatus.SelectedIndex + 1).Id;
             }
             DB.EditShipment(shipmentToChange);
+            ((ShipIndex)window).RefreshShipmentListView();
             MessageBox.Show("Zaktualizowano pomyślnie");
             Close();
         }

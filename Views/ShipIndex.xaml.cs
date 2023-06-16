@@ -41,9 +41,10 @@ namespace CourierSystem.Views
         {
             InitializeComponent();
             RefreshShipmentListView();
+            //ListViewShipment.ItemsSource = shipmentsViews;
         }
 
-        private void RefreshShipmentListView()
+        public void RefreshShipmentListView()
         {
             shipmentsViews = new List<ShipmentView>();
             shipments = DB.GetShipmentsWithOtherTables();
@@ -61,6 +62,9 @@ namespace CourierSystem.Views
                     });
             }
             ListViewShipment.ItemsSource = shipmentsViews;
+            ListViewShipment.Items.Refresh();
+            DataContext = this;
+
         }
         private void ListViewShipment_ItemClicked(object sender, SelectionChangedEventArgs e)
         {
@@ -83,20 +87,14 @@ namespace CourierSystem.Views
                 shipmentToChange = DB.SearchShipment((long)Convert.ToUInt64(selectedShipmentNumber));
                 if (shipmentToChange != null)
                 {
-                    ShipEdit shipEdit = new ShipEdit(shipmentToChange);
+                    ShipEdit shipEdit = new ShipEdit(shipmentToChange,this);
                     shipEdit.Show();
-                    RefreshShipmentListView();
                 }
                 else
                 {
                     MessageBox.Show("Coś poszło nie tak, operacja anulowana.");
                 }
             }
-        }
-
-        private void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            RefreshShipmentListView();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)

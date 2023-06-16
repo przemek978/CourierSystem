@@ -89,7 +89,6 @@ namespace CourierSystem.Views
                 {
                     ShipEdit shipEdit = new ShipEdit(shipmentToChange,this);
                     shipEdit.Show();
-                    //RefreshShipmentListView();
                 }
                 else
                 {

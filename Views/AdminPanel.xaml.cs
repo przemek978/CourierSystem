@@ -30,5 +30,12 @@ namespace CourierSystem.Views
             window.Show();
             this.Close();
         }
+
+        private void ProblemMange_Click(object sender, RoutedEventArgs e)
+        {
+            MessagePanel window = new MessagePanel();
+            window.Show();
+            this.Close();
+        }
     }
 }

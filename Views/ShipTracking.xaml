@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourierSystem.Views"
         mc:Ignorable="d"
-        Title="Śledzenie przesyłek" Height="600" Width="460">
+        Title="Śledzenie przesyłek" Height="610" Width="460">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -22,6 +22,10 @@
             <TextBlock x:Name="ResultText" FontSize="24" Height="80" TextAlignment="Center" TextWrapping="Wrap"/>
             <TextBlock x:Name="Message" Margin="0,0,0,0" FontSize="24" FontWeight="Bold" TextAlignment="Center" Text="Jeżeli masz pytania wyślij do nas wiadomość" Height="69" TextWrapping="Wrap"/>
             <TextBox x:Name="MessageText" FontSize="24" Height="80" TextAlignment="Center" TextWrapping="Wrap"/>
+            <ComboBox x:Name="UserTypeCombo" Margin="5">
+                <ComboBoxItem Content="Nadawca"/>
+                <ComboBoxItem Content="Odbiorca"/>
+            </ComboBox>
             <Button x:Name="SendButton" Content="Wyślij" FontSize="24"  Width="170" Margin="0,0,0,10" RenderTransformOrigin="0.529,0.603" Click="SendButton_Click"/>
         </StackPanel>
     </Grid>

@@ -38,6 +38,11 @@ namespace CourierSystem.Data
             return _context.Shipments.FirstOrDefault(s => s.ShipmentNumber == Number);
         }
 
+        public static Message SearchMessage(string content)
+        {
+            return _context.Messages.FirstOrDefault(m => m.Content == content);
+        }
+
         public static void AddShipment(Shipment shipment)
         {
             _context.Add(shipment);
@@ -69,6 +74,25 @@ namespace CourierSystem.Data
             }
 
         }
+        public static void ChangeMessageStatus(Message message)
+        {
+            _context.Attach(message).State = EntityState.Modified;
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (SearchMessage(message.Content) == null)
+                {
+                    MessageBox.Show("Nie znaleziono zamówienia");
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
 
         public static void DeleteShipment(Shipment shipment)
         {
@@ -97,6 +121,11 @@ namespace CourierSystem.Data
             return _context.People.ToList();
         }
 
+        public static List<Message> GetMessages()
+        {
+            return _context.Messages.ToList();
+        }
+
         public static Person SearchPerson(int number)
         {
             return _context.People.FirstOrDefault(p => p.PhoneNumber == number);
@@ -107,10 +136,10 @@ namespace CourierSystem.Data
             _context.Add(person);
             _context.SaveChanges();
         }
-        public static User ValidateUser(string username,string password)
+        public static User ValidateUser(string username, string password)
         {
             var hasher = new PasswordHasher<User>();
-            var user= _context.Users.FirstOrDefault(u=> u.Username == username);
+            var user = _context.Users.FirstOrDefault(u => u.Username == username);
 
             if (user == null)
             {
@@ -135,5 +164,6 @@ namespace CourierSystem.Data
         {
             return ConnectionString;
         }
+
     }
 }

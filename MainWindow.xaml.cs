@@ -24,6 +24,9 @@ namespace CourierSystem
         public MainWindow()
         {
             InitializeComponent();
+            MessagePanel window = new MessagePanel();
+            window.Show();
+            this.Close();
         }
 
         private void Tracking_Click(object sender, RoutedEventArgs e)

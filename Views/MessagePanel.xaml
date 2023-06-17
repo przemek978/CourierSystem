@@ -12,7 +12,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5,5,5,5">
-            <Button x:Name="StatusButton" Content="Zmień status" Margin="0,0,50,0" MinWidth="100" Click="StatusButton_Click"/>
+            <Button x:Name="StatusButton" Content="Zmień status" Margin="0,0,50,0" Click="StatusButton_Click"/>
             <TextBlock Text="Pokazuj zamkniete" Margin="5"/>
             <CheckBox HorizontalAlignment="Center" Checked="Closed_Checked" Unchecked="Closed_Unchecked" IsChecked="True" VerticalAlignment="Center"/>
         </StackPanel>

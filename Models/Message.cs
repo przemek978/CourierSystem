@@ -13,7 +13,7 @@ namespace CourierSystem.Models
         public string Content { get; set; }
         public string UserType { get; set; }
         public long ShipmentNumber { get; set; }
-        public bool Status { get; set; }
+        public bool Status { get; set; }// True odpoweidzano false nie
         public Shipment Shipment { get; set; }
 
         public Message(string content, long shipmentNumber,string userType, bool status=false)

@@ -42,6 +42,10 @@ namespace CourierSystem.Views
             InitializeComponent();
             this.user = user;
             RefreshShipmentListView("");
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource =
+                new BitmapImage(new Uri("D:/Projects/CourierSystem/Background.jpg", UriKind.Absolute));
+            this.Background = myBrush;
         }
 
         private void RefreshShipmentListView(String contains)

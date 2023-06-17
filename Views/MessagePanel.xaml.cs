@@ -47,7 +47,7 @@ namespace CourierSystem.Views
             messages = DB.GetMessages();
             foreach (var mess in messages)
             {
-                if (CheckClosed == true || mess.Status == true)
+                if (CheckClosed == true || mess.Status == false)
                 {
                     messagesViews.Add(
                         new MessageView
@@ -59,11 +59,7 @@ namespace CourierSystem.Views
                         });
                 }
             }
-
-            if (messagesViews != null)
-            {
-                ListViewMessages.ItemsSource = messagesViews;
-            }
+            ListViewMessages.ItemsSource = messagesViews;
             ListViewMessages.Items.Refresh();
             DataContext = this;
 
@@ -71,6 +67,8 @@ namespace CourierSystem.Views
 
         private void Closed_Checked(object sender, RoutedEventArgs e)
         {
+            if (!IsLoaded)
+                return;
             CheckClosed = true;
             RefreshMessageListView();
         }

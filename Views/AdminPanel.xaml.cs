@@ -22,6 +22,10 @@ namespace CourierSystem.Views
         public AdminPanel()
         {
             InitializeComponent();
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource =
+                new BitmapImage(new Uri("D:/Projects/CourierSystem/Background.jpg", UriKind.Absolute));
+            this.Background = myBrush;
         }
 
         private void ShipMange_Click(object sender, RoutedEventArgs e)

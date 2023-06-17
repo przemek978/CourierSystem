@@ -24,9 +24,13 @@ namespace CourierSystem
         public MainWindow()
         {
             InitializeComponent();
-            MessagePanel window = new MessagePanel();
-            window.Show();
-            this.Close();
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource =
+                new BitmapImage(new Uri("D:/Projects/CourierSystem/Background.jpg", UriKind.Absolute));
+            this.Background = myBrush;
+            //MessagePanel window = new MessagePanel();
+            //window.Show();
+            //this.Close();
         }
 
         private void Tracking_Click(object sender, RoutedEventArgs e)
@@ -42,7 +46,7 @@ namespace CourierSystem
             shipTest.Show();
             this.Close();
         }
-    
+
 
         private void Navigate_To_Login(object sender, RoutedEventArgs e)
         {

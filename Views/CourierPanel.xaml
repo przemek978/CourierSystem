@@ -19,10 +19,12 @@
                 <ColumnDefinition Width="1.2*" />
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Zmiana statusu przesyłki" FontSize="24" MinWidth="280" TextAlignment="Center" HorizontalAlignment="Left"/>
             <ComboBox Grid.Column="1" x:Name="StatusCombo" FontSize="24"  Margin="0,0,20,0" ItemsSource="{Binding statuses}" DisplayMemberPath="Status" HorizontalAlignment="Stretch"></ComboBox>
             <Button Grid.Column="2" x:Name="StatusSubmit" Content="Potwierdz" MinWidth="100" MinHeight="30" Click="StatusSubmit_Click" HorizontalAlignment="Stretch"/>
+            <Button Grid.Column="3" x:Name="Logout" Content="Wyloguj" MinWidth="100" MinHeight="30" Click="Logout_Click" HorizontalAlignment="Stretch"/>
         </Grid>
         <TextBox Name="SearchCourierShipment" Grid.Row="1" FontSize="24" TextChanged="SearchBox_TextChanged" ></TextBox>
         <ListView Grid.Row="2" Name="ListViewCourierShipment" SelectionChanged="ListViewShipment_ItemClicked" Opacity="1">

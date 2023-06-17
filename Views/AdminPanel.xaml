@@ -22,7 +22,7 @@
             <Button x:Name="ShipMange" Content="Zarządzaj przesyłkami" FontSize="20" Margin="0,10,0,10" Click="ShipMange_Click"/>
             <Button Content="Zarządzaj kurierami" FontSize="20" Margin="0,10,0,10"/>
             <Button x:Name="ProblemMange" Content="Zgłoszone problemy" FontSize="20" Margin="0,10,0,10" Click="ProblemMange_Click"/>
-            <Button Content="Wyloguj" FontSize="20" Background="Red" Margin="0,10,0,10"/>
+            <Button Content="Wyloguj" FontSize="20" Background="Red" Margin="0,10,0,10" Click="Logout_Click"/>
         </StackPanel>
     </Grid>
 </Window>

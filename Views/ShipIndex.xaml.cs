@@ -44,7 +44,7 @@ namespace CourierSystem.Views
             RefreshShipmentListView();
             ImageBrush myBrush = new ImageBrush();
             myBrush.ImageSource =
-                new BitmapImage(new Uri("D:/Projects/CourierSystem/Background.jpg", UriKind.Absolute));
+                new BitmapImage(new Uri("../../../Background.jpg", UriKind.Relative));
             this.Background = myBrush;
             //ListViewShipment.ItemsSource = shipmentsViews;
         }
@@ -152,6 +152,13 @@ namespace CourierSystem.Views
                 }
 
             }
+        }
+
+        private void Return_Click(object sender, RoutedEventArgs e)
+        {
+            AdminPanel window = new AdminPanel();
+            window.Show();
+            this.Close();
         }
     }
 }

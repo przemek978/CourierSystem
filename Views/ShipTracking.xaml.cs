@@ -25,6 +25,10 @@ namespace CourierSystem.Views
         public ShipTracking()
         {
             InitializeComponent();
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource =
+                new BitmapImage(new Uri("../../../Background.jpg", UriKind.Relative));
+            this.Background = myBrush;
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -59,6 +63,13 @@ namespace CourierSystem.Views
             {
                 MessageBox.Show("Pole z wiadomością nie może być puste");
             }
+        }
+
+        private void Return_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow window = new MainWindow();
+            window.Show();
+            this.Close();
         }
     }
 }

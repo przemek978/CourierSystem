@@ -24,7 +24,7 @@ namespace CourierSystem.Views
             InitializeComponent();
             ImageBrush myBrush = new ImageBrush();
             myBrush.ImageSource =
-                new BitmapImage(new Uri("D:/Projects/CourierSystem/Background.jpg", UriKind.Absolute));
+                new BitmapImage(new Uri("../../../Background.jpg", UriKind.Relative));
             this.Background = myBrush;
         }
 
@@ -38,6 +38,13 @@ namespace CourierSystem.Views
         private void ProblemMange_Click(object sender, RoutedEventArgs e)
         {
             MessagePanel window = new MessagePanel();
+            window.Show();
+            this.Close();
+        }
+
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            Login window = new Login();
             window.Show();
             this.Close();
         }

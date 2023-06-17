@@ -24,6 +24,7 @@
             <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,5,5">
                 <Button Content="Edytuj" Click="EditButton_Click" MinWidth="80" MinHeight="30"/>
                 <Button Content="Usuń" Click="DeleteButton_Click" MinWidth="80" MinHeight="30"/>
+                <Button Content="Powrót" Click="Return_Click" MinWidth="80" MinHeight="30"/>
             </StackPanel>
         </Grid>
         <ListView Grid.Row="1" Margin="5" Name="ListViewShipment" SelectionChanged="ListViewShipment_ItemClicked" Opacity="0.985">

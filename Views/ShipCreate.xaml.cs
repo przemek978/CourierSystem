@@ -73,7 +73,9 @@ namespace CourierSystem.Views
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            AdminPanel window = new AdminPanel();
+            window.Show();
+            this.Close();
         }
 
         private bool CheckValidation()

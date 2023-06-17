@@ -27,7 +27,7 @@ namespace CourierSystem.Views
             InitializeComponent();
             ImageBrush myBrush = new ImageBrush();
             myBrush.ImageSource =
-                new BitmapImage(new Uri("D:/Projects/CourierSystem/Background.jpg", UriKind.Absolute));
+                new BitmapImage(new Uri("../../../Background.jpg", UriKind.Relative));
             this.Background = myBrush;
         }
 

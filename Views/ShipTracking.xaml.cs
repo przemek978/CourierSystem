@@ -50,7 +50,7 @@ namespace CourierSystem.Views
         {
             if (MessageText.Text != "")
             {
-                var message = new Message(MessageText.Text, shipment.ShipmentNumber);
+                var message = new Message(MessageText.Text, shipment.ShipmentNumber,UserTypeCombo.SelectionBoxItem.ToString());
                 DB.SendMessage(message);
                 MessageBox.Show("Wiadomość została wysłana");
                 MessageText.Text = "";

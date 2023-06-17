@@ -8,6 +8,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace CourierSystem
 {
@@ -21,7 +23,6 @@ namespace CourierSystem
             base.OnStartup(e);
 
             var context = DB.GetInstance();
-
 
             if (context.Couriers.Any() && context.People.Any() && context.Statuses.Any() && !context.Shipments.Any())
             {

@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:CourierSystem.Views"
         mc:Ignorable="d"
         Title="CourierPanel" Height="450" Width="1260">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -15,16 +16,16 @@
 
         <Grid Grid.Row="0"  Margin="0,5,5,5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="1.2*" />
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Zmiana statusu przesyłki" FontSize="24" MinWidth="280" TextAlignment="Center" HorizontalAlignment="Left"/>
             <ComboBox Grid.Column="1" x:Name="StatusCombo" FontSize="24"  Margin="0,0,20,0" ItemsSource="{Binding statuses}" DisplayMemberPath="Status" HorizontalAlignment="Stretch"></ComboBox>
-            <Button Grid.Column="2" x:Name="StatusSubmit" Content="Potwierdz" MinWidth="60" MinHeight="30" Click="StatusSubmit_Click" HorizontalAlignment="Stretch"/>
+            <Button Grid.Column="2" x:Name="StatusSubmit" Content="Potwierdz" MinWidth="100" MinHeight="30" Click="StatusSubmit_Click" HorizontalAlignment="Stretch"/>
         </Grid>
         <TextBox Name="SearchCourierShipment" Grid.Row="1" FontSize="24" TextChanged="SearchBox_TextChanged" ></TextBox>
-        <ListView Grid.Row="2" Name="ListViewCourierShipment" SelectionChanged="ListViewShipment_ItemClicked">
+        <ListView Grid.Row="2" Name="ListViewCourierShipment" SelectionChanged="ListViewShipment_ItemClicked" Opacity="1">
             <ListView.View >
                 <GridView>
                     <GridViewColumn Header="Numer Przesyłki" DisplayMemberBinding="{Binding ShipmentNumber}" Width="110"/>

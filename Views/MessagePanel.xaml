@@ -1,0 +1,44 @@
+﻿<Window x:Class="CourierSystem.Views.MessagePanel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CourierSystem.Views"
+        mc:Ignorable="d"
+        Title="MessagePanel" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5,5,5,5">
+            <Button x:Name="StatusButton" Content="Zmień status" Margin="0,0,50,0" Click="StatusButton_Click"/>
+            <TextBlock Text="Pokazuj zamkniete" Margin="5"/>
+            <CheckBox HorizontalAlignment="Center" Checked="Closed_Checked" Unchecked="Closed_Unchecked" IsChecked="True" VerticalAlignment="Center"/>
+        </StackPanel>
+        <!--<ComboBox>
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Otwarte" Margin="5"/>
+                    <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Zamknięte" Margin="5"/>
+                    <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+            </ComboBoxItem>
+        </ComboBox>-->
+        <ListView Grid.Row="1" Margin="5" Name="ListViewMessages" SelectionChanged="ListViewMessage_ItemClicked">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Wiadmość jako" DisplayMemberBinding="{Binding UserType}" Width="100"/>
+                    <GridViewColumn Header="Treść" DisplayMemberBinding="{Binding Content}" Width="400"/>
+                    <GridViewColumn Header="Numer Przesyłki" DisplayMemberBinding="{Binding ShipmentNumber}" Width="120"/>
+                    <GridViewColumn Header="Czy odpowiedziano" DisplayMemberBinding="{Binding Status}" Width="130"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

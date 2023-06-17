@@ -25,6 +25,10 @@ namespace CourierSystem.Views
         public Login()
         {
             InitializeComponent();
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource =
+                new BitmapImage(new Uri("D:/Projects/CourierSystem/Background.jpg", UriKind.Absolute));
+            this.Background = myBrush;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)

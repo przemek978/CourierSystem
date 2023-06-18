@@ -1,0 +1,40 @@
+﻿<Window x:Class="CourierSystem.Views.CourierEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CourierSystem.Views"
+        mc:Ignorable="d"
+        Title="Edytuj dane kuriera" Height="450" Width="800">
+    <DockPanel>
+        <GroupBox DockPanel.Dock="Top" Margin="5" Header="Wpisz dane, które chcesz zmienić:">
+            <Grid>
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center" Margin="5" Name="CourierNameLabel" >Imię:</Label>
+                <TextBox Grid.Column="0"  Grid.Row="1"  Margin="5" Name="CourierName"/>
+                <Label Grid.Column="1" Grid.Row="0" VerticalContentAlignment="Center" Margin="5" Name="CourierUsernameLabel" >Nazwa użytkownika:</Label>
+                <TextBox Grid.Column="1"  Grid.Row="1"  Margin="5" Name="CourierUsername"/>
+                <Label Grid.Column="0" Grid.Row="2" VerticalContentAlignment="Center" Margin="5" >Hasło:</Label>
+                <TextBox Grid.Column="0"  Grid.Row="3"  Margin="5" Name="Password"/>
+                <Label Grid.Column="1" Grid.Row="2" VerticalContentAlignment="Center" Margin="5" >Powtórz hasło:</Label>
+                <TextBox Grid.Column="1"  Grid.Row="3"  Margin="5" Name="ConfirmPassword"/>
+            </Grid>
+        </GroupBox>
+        <Grid DockPanel.Dock="Top" Margin="0 0 5 5">
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Zatwierdź" Click="ConfirmButton_Click" MinWidth="70" MinHeight="30"/>
+                <Button Content="Anuluj" Click="CancelButton_Click" MinWidth="50" MinHeight="30"/>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</Window>

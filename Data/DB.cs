@@ -116,6 +116,54 @@ namespace CourierSystem.Data
             return _context.Couriers.ToList();
         }
 
+        public static bool CheckUsername(string username)
+        {
+            return _context.Users.FirstOrDefault(p => p.Username == username) == null;
+        }
+
+        public static Courier SearchCourier(int id)
+        {
+            return _context.Couriers.FirstOrDefault(c => c.Id == id);
+        }
+
+        public static void AddCourier(Courier courier)
+        {
+            _context.Add(courier);
+            _context.SaveChanges();
+        }
+
+        public static int CountCourierShipments(int id) 
+        { 
+            return _context.Shipments.Where(s=>s.CourierID==id).Count();
+        }
+
+        public static void EditCourier(Courier courier)
+        {
+            _context.Attach(courier).State = EntityState.Modified;
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (SearchCourier(courier.Id) == null)
+                {
+                    MessageBox.Show("Nie znaleziono kuriera");
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+        }
+
+        public static void DeleteCourier(Courier courier)
+        {
+            _context.Couriers.Remove(courier);
+            _context.SaveChanges();
+        }
+
         public static List<Person> GetPeople()
         {
             return _context.People.ToList();

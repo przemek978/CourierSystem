@@ -32,6 +32,10 @@ namespace CourierSystem.Views
             InitializeComponent();
             couriers = DB.GetCouriers();
             PickCourier.ItemsSource = couriers;
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource =
+                new BitmapImage(new Uri("../../../Background.jpg", UriKind.Relative));
+            this.Background = myBrush;
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)

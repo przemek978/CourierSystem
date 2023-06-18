@@ -28,9 +28,23 @@ namespace CourierSystem.Views
             this.Background = myBrush;
         }
 
+        private void ShipAdd_Click(object sender, RoutedEventArgs e)
+        {
+            ShipCreate window = new ShipCreate();
+            window.Show();
+            this.Close();
+        }
+
         private void ShipMange_Click(object sender, RoutedEventArgs e)
         {
             ShipIndex window = new ShipIndex();
+            window.Show();
+            this.Close();
+        }
+
+        private void CourierManage_Click(object sender, RoutedEventArgs e)
+        {
+            CourierManagement window = new CourierManagement();
             window.Show();
             this.Close();
         }

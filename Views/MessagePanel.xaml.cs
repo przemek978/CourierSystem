@@ -39,6 +39,10 @@ namespace CourierSystem.Views
         {
             InitializeComponent();
             RefreshMessageListView();
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource =
+                new BitmapImage(new Uri("../../../Background.jpg", UriKind.Relative));
+            this.Background = myBrush;
         }
 
         public void RefreshMessageListView()
@@ -110,6 +114,13 @@ namespace CourierSystem.Views
                 }
 
             }
+        }
+
+        private void Return_Click(object sender, RoutedEventArgs e)
+        {
+            AdminPanel window = new AdminPanel();
+            window.Show();
+            this.Close();
         }
     }
 }

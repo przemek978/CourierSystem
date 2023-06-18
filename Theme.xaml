@@ -85,7 +85,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="ComboBox">
+    <!--<Style TargetType="ComboBox">
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="Background" Value="Orange"/>
         <Setter Property="BorderBrush" Value="Black"/>
@@ -93,13 +93,13 @@
         <Setter Property="Padding" Value="5"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="Height" Value="30"/>
-        <!--<Style.Triggers>
+        --><!--<Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Opacity" Value="0.5"/>
                 <Setter Property="Background" Value="Gold"/>
                 <Setter Property="Foreground" Value="Black"/>
             </Trigger>
-        </Style.Triggers>-->
+        </Style.Triggers>--><!--
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
@@ -120,7 +120,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 
 
 
@@ -140,11 +140,9 @@
         </Setter>
     </Style>
 
-
-
     <Style TargetType="TextBox">
         <Setter Property="Background" Value="Orange"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Foreground" Value="Black"/>
         <Setter Property="Padding" Value="5"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="FontSize" Value="20"/>
@@ -176,7 +174,7 @@
     </Style>
     <Style TargetType="PasswordBox">
         <Setter Property="Background" Value="Orange"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Foreground" Value="Black"/>
         <Setter Property="Padding" Value="5"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="FontSize" Value="20"/>

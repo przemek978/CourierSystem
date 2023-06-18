@@ -11,11 +11,20 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="5,5,5,5">
-            <Button x:Name="StatusButton" Content="Zmień status" Margin="0,0,50,0" Click="StatusButton_Click"/>
-            <TextBlock Text="Pokazuj zamkniete" Margin="5"/>
-            <CheckBox HorizontalAlignment="Center" Checked="Closed_Checked" Unchecked="Closed_Unchecked" IsChecked="True" VerticalAlignment="Center"/>
-        </StackPanel>
+        <Grid Grid.Row="0" Margin="5,5,5,5" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Column="0">
+                <TextBlock Text="Pokazuj zamkniete" Margin="5" FontSize="18" />
+                <CheckBox Margin="5,5,5,10" HorizontalAlignment="Center" Checked="Closed_Checked" Unchecked="Closed_Unchecked" IsChecked="True" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="StatusButton" Content="Zmień status" Click="StatusButton_Click"/>
+                <Button Content="Powrót" Click="Return_Click" MinWidth="80" MinHeight="30"/>
+            </StackPanel>
+        </Grid>
         <!--<ComboBox>
             <ComboBoxItem>
                 <StackPanel Orientation="Horizontal">
@@ -30,7 +39,7 @@
                 </StackPanel>
             </ComboBoxItem>
         </ComboBox>-->
-        <ListView Grid.Row="1" Margin="5" Name="ListViewMessages" SelectionChanged="ListViewMessage_ItemClicked">
+        <ListView Grid.Row="1" Margin="5" Name="ListViewMessages" SelectionChanged="ListViewMessage_ItemClicked" Opacity="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Wiadmość jako" DisplayMemberBinding="{Binding UserType}" Width="100"/>

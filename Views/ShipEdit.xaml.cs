@@ -36,6 +36,10 @@ namespace CourierSystem.Views
             PickStatus.ItemsSource = statuses;
             CourierHeader.Header = "Zmień kuriera z "+couriers.ElementAt(shipment.CourierID-1).Name+" na:";
             StatusHeader.Header = "Zmień status z "+statuses.ElementAt(shipment.StatusId-1).Status+" na:";
+            ImageBrush myBrush = new ImageBrush();
+            myBrush.ImageSource =
+                new BitmapImage(new Uri("../../../Background.jpg", UriKind.Relative));
+            this.Background = myBrush;
             this.window = window;
         }
 

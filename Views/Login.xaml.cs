@@ -21,7 +21,7 @@ namespace CourierSystem.Views
     /// </summary>
     public partial class Login : Window
     {
-        private User user;
+        public static User user;
         public Login()
         {
             InitializeComponent();
@@ -40,7 +40,7 @@ namespace CourierSystem.Views
             }
             else
             {
-                this.user = user;
+                Login.user = user;
                 OpenNextView();
             }
         }

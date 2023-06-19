@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.2*" />
+                <ColumnDefinition Width="1.6*" />
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
@@ -22,6 +22,7 @@
             <ComboBox Grid.Column="1" x:Name="StatusCombo" Margin="0,5,20,5" ItemsSource="{Binding statuses}" DisplayMemberPath="Status" HorizontalAlignment="Stretch" ></ComboBox>
             <Button Grid.Column="2" x:Name="StatusSubmit" Content="Potwierdz" Margin="0,5,5,5" MinWidth="100" MinHeight="30" Click="StatusSubmit_Click" HorizontalAlignment="Stretch"/>
             <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,5,5">
+                <Button Content="Drukuj Listę" Click="PrintButton_Click" MinWidth="130" MinHeight="30"/>
                 <Button Content="Edytuj" Click="EditButton_Click" MinWidth="80" MinHeight="30"/>
                 <Button Content="Usuń" Click="DeleteButton_Click" MinWidth="80" MinHeight="30"/>
                 <Button Content="Powrót" Click="Return_Click" MinWidth="80" MinHeight="30"/>

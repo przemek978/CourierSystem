@@ -37,7 +37,7 @@ namespace CourierSystem.Views
 
         private void ShipMange_Click(object sender, RoutedEventArgs e)
         {
-            ShipIndex window = new ShipIndex();
+            ShipIndex window = new ShipIndex(Login.user);
             window.Show();
             this.Close();
         }

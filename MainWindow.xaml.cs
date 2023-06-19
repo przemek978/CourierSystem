@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CourierSystem.Data;
 
 namespace CourierSystem
 {
@@ -28,7 +29,8 @@ namespace CourierSystem
             myBrush.ImageSource =
                 new BitmapImage(new Uri("../../../Background.jpg", UriKind.Relative));
             this.Background = myBrush;
-            //MessagePanel window = new MessagePanel();
+            //Window window = new CourierPanel(DB.GetCouriers()[0]);
+            //Window window = new ShipIndex(DB.GetInstance().Users.ToList()[3]);
             //window.Show();
             //this.Close();
         }
@@ -39,14 +41,6 @@ namespace CourierSystem
             shipTracking.Show();
             this.Close();
         }
-
-        private void Test_Click(object sender, RoutedEventArgs e)
-        {
-            ShipIndex shipTest = new ShipIndex();
-            shipTest.Show();
-            this.Close();
-        }
-
 
         private void Navigate_To_Login(object sender, RoutedEventArgs e)
         {

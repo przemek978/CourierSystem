@@ -11,7 +11,7 @@
         <StackPanel Margin="0,100,0,100">
             <Button FontSize="72" Click="Navigate_To_Login" >Logowanie do systemu
             </Button>
-            <Button x:Name="Tracking" FontSize="72" Click="Tracking_Click">Sledzenie przesyłek</Button>
+            <Button x:Name="Tracking" FontSize="72" Click="Tracking_Click">Śledzenie przesyłek</Button>
         </StackPanel>
     </Grid>
 </Window>

@@ -4,13 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows;
+using CourierSystem.Data;
 using ZXing;
 using ZXing.Common;
 using ZXing.Windows.Compatibility;
 using Font = iTextSharp.text.Font;
 using Image = iTextSharp.text.Image;
 using Rectangle = iTextSharp.text.Rectangle;
+using Org.BouncyCastle.Cms;
 
 
 namespace CourierSystem.Models
@@ -177,7 +180,7 @@ namespace CourierSystem.Models
         public static string GenerujEtykiete(string ShipNumber)
         {
             Document document = new Document();
-            string name = @"Etykieta "+ ShipNumber;
+            string name = @"Etykieta " + ShipNumber;
             string FileName = @"C:\Users\przem\Desktop\" + name + ".pdf";
             try
             {
@@ -250,26 +253,27 @@ namespace CourierSystem.Models
                 barcodeImage.SetAbsolutePosition(barcodeX, barcodeY);
                 document.Add(barcodeImage);
 
-                // Wyświetl numer przesyłki na etykiecie
-                //posY -= 50;
-                //contentByte.BeginText();
-                //contentByte.SetTextMatrix(posX, posY);
-                //contentByte.SetFontAndSize(baseFont, 12);
-                //contentByte.ShowText("Numer przesyłki:");
-                //contentByte.EndText();
+                // Dodaj informacje o firmie
+                long nr;
+                long.TryParse(ShipNumber, out nr);
+                var ship = DB.SearchShipment(nr);
 
-                //posY -= 20;
+                // Ustaw pozycję danych adresata na dole strony
+                // Ustaw pozycję danych adresata na dole strony
+                float recipientX = document.PageSize.Width / 2 - 5;
+                float recipientY = document.BottomMargin + 150;
 
-                //contentByte.BeginText();
-                //contentByte.SetTextMatrix(posX, posY);
-                //contentByte.SetFontAndSize(baseFont, 12);
-                //contentByte.ShowText(ShipNumber);
-                //contentByte.EndText();
+                if (ship != null)
+                {
+                    ColumnText.ShowTextAligned(contentByte, Element.ALIGN_CENTER, new Phrase("ADRESAT", new Font(baseFont, 24, Font.BOLD)), recipientX, recipientY, 0);
+                    ColumnText.ShowTextAligned(contentByte, Element.ALIGN_CENTER, new Phrase(ship.Recipient.FirstName + " " + ship.Recipient.LastName, new Font(baseFont, 16, Font.BOLD)), recipientX, recipientY-20, 0);
+                    ColumnText.ShowTextAligned(contentByte, Element.ALIGN_CENTER, new Phrase(ship.Recipient.Address, companyFont), recipientX, recipientY - 40, 0);
+                    ColumnText.ShowTextAligned(contentByte, Element.ALIGN_CENTER, new Phrase(ship.Recipient.PhoneNumber.ToString(), companyFont), recipientX, recipientY - 60, 0);
+                }
             }
             catch (IOException)
             {
                 MessageBox.Show("Dokument jest otwarty");
-                throw;
             }
             catch
             {

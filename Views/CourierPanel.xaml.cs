@@ -68,7 +68,8 @@ namespace CourierSystem.Views
             {
                 if (ship.CourierID == user.Id && ship.ShipmentNumber.ToString().Contains(contains))
                 {
-                    Couriershipments.Add(ship);
+                    if (ship.Status.Id != 8)
+                        Couriershipments.Add(ship);
                     shipmentsViews.Add(
                         new ShipmentCourierView
                         {
@@ -137,7 +138,30 @@ namespace CourierSystem.Views
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
         {
-            Printer.GenerujListPrzewozowy(Couriershipments, user, true);
+            var pdfFilePath = Printer.GenerujListPrzewozowy(Couriershipments, user, true);
+            //show a printdialog to user where attributes can be changed
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.PageRangeSelection = PageRangeSelection.AllPages;
+            printDialog.UserPageRangeEnabled = true;
+            bool? doPrint = printDialog.ShowDialog();
+            if (doPrint != true)
+            {
+                return;
+            }
+
+            //open the pdf file
+            FixedDocument fixedDocument;
+            using (FileStream pdfFile = new FileStream(pdfFilePath, FileMode.Open, FileAccess.Read))
+            {
+                Document document = new Document(pdfFile);
+                RenderSettings renderSettings = new RenderSettings();
+                ConvertToWpfOptions renderOptions = new ConvertToWpfOptions { ConvertToImages = false };
+                renderSettings.RenderPurpose = RenderPurpose.Print;
+
+                Summary summary = new Summary();
+                fixedDocument = document.ConvertToWpf(renderSettings, renderOptions, 0, 1, summary);
+            }
+            printDialog.PrintDocument(fixedDocument.DocumentPaginator, "Print");
         }
 
         private void PrintLabelButton_Click(object sender, RoutedEventArgs e)
@@ -148,32 +172,7 @@ namespace CourierSystem.Views
             }
             else
             {
-                var pdfFilePath=Printer.GenerujEtykiete(selectedShipmentNumber);
-
-                //show a printdialog to user where attributes can be changed
-                PrintDialog printDialog = new PrintDialog();
-                printDialog.PageRangeSelection = PageRangeSelection.AllPages;
-                printDialog.UserPageRangeEnabled = true;
-                bool? doPrint = printDialog.ShowDialog();
-                if (doPrint != true)
-                {
-                    return;
-                }
-
-                //open the pdf file
-                FixedDocument fixedDocument;
-                using (FileStream pdfFile = new FileStream(pdfFilePath, FileMode.Open, FileAccess.Read))
-                {
-                    Document document = new Document(pdfFile);
-                    RenderSettings renderSettings = new RenderSettings();
-                    ConvertToWpfOptions renderOptions = new ConvertToWpfOptions { ConvertToImages = false };
-                    renderSettings.RenderPurpose = RenderPurpose.Print;
-
-                    Summary summary = new Summary();
-                    fixedDocument = document.ConvertToWpf(renderSettings, renderOptions,0,1,summary);
-                }
-                printDialog.PrintDocument(fixedDocument.DocumentPaginator, "Print");
-
+                Printer.GenerujEtykiete(selectedShipmentNumber);
             }
         }
     }

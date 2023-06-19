@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -18,7 +19,11 @@ using CourierSystem.Models;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.IdentityModel.Tokens;
-using Document = iTextSharp.text.Document;
+using TallComponents.PDF;
+using TallComponents.PDF.Configuration;
+using TallComponents.PDF.Diagnostics;
+using TallComponents.PDF.Rasterizer;
+using Document = TallComponents.PDF.Document;
 
 namespace CourierSystem.Views
 {
@@ -178,7 +183,30 @@ namespace CourierSystem.Views
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
         {
-            Printer.GenerujListPrzewozowy(shipments,user);
+            
+            var pdfFilePath = Printer.GenerujListPrzewozowy(shipments, user);
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.PageRangeSelection = PageRangeSelection.AllPages;
+            printDialog.UserPageRangeEnabled = true;
+            bool? doPrint = printDialog.ShowDialog();
+            if (doPrint != true)
+            {
+                return;
+            }
+
+            //open the pdf file
+            FixedDocument fixedDocument;
+            using (FileStream pdfFile = new FileStream(pdfFilePath, FileMode.Open, FileAccess.Read))
+            {
+                Document document = new Document(pdfFile);
+                RenderSettings renderSettings = new RenderSettings();
+                ConvertToWpfOptions renderOptions = new ConvertToWpfOptions { ConvertToImages = false };
+                renderSettings.RenderPurpose = RenderPurpose.Print;
+
+                Summary summary = new Summary();
+                fixedDocument = document.ConvertToWpf(renderSettings, renderOptions, 0, 1, summary);
+            }
+            printDialog.PrintDocument(fixedDocument.DocumentPaginator, "Print");
         }
     }
 }

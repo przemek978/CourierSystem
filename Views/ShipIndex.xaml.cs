@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
@@ -61,14 +62,21 @@ namespace CourierSystem.Views
             //ListViewShipment.ItemsSource = shipmentsViews;
         }
 
-        public void RefreshShipmentListView()
+        public void RefreshShipmentListView(String text1 = "")
         {
             shipmentsViews = new List<ShipmentView>();
             shipments = DB.GetShipmentsWithOtherTables();
             statuses = DB.GetStatuses();
+            String text = text1.ToLower();
             foreach (var ship in shipments)
             {
-                shipmentsViews.Add(
+                if (ship.ShipmentNumber.ToString().Contains(text)
+                    || ship.Status.Status.ToLower().Contains(text) ||
+                    (ship.Sender.FirstName + " " + ship.Sender.LastName + ", " + ship.Sender.Address + ", " + ship.Sender.PhoneNumber).ToLower().Contains(text)
+                    || (ship.Recipient.FirstName + " " + ship.Recipient.LastName + ", " + ship.Recipient.Address + ", " + ship.Recipient.PhoneNumber).ToLower().Contains(text)
+                    || ship.Size.ToString().ToLower().Contains(text) || ship.Courier.Name.ToLower().Contains(text))
+                {
+                    shipmentsViews.Add(
                     new ShipmentView
                     {
                         ShipmentNumber = ship.ShipmentNumber.ToString(),
@@ -80,6 +88,8 @@ namespace CourierSystem.Views
                                     ship.Recipient.Address + ", " + ship.Recipient.PhoneNumber,
                         Size = ship.Size.ToString()
                     });
+                }
+                    
             }
 
             ListViewShipment.ItemsSource = shipmentsViews;
@@ -208,6 +218,12 @@ namespace CourierSystem.Views
             }
             printDialog.PrintDocument(fixedDocument.DocumentPaginator, "Print");
         }
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            String text = SearchShipmentAdmin.Text;
+            RefreshShipmentListView(text);
+        }
     }
+
 }
 

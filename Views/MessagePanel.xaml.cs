@@ -45,22 +45,26 @@ namespace CourierSystem.Views
             this.Background = myBrush;
         }
 
-        public void RefreshMessageListView()
+        public void RefreshMessageListView(String text1 = "")
         {
             messagesViews = new List<MessageView>();
             messages = DB.GetMessages();
+            String text = text1.ToLower();
             foreach (var mess in messages)
             {
                 if (CheckClosed == true || mess.Status == false)
                 {
-                    messagesViews.Add(
-                        new MessageView
-                        {
-                            UserType = mess.UserType,
-                            Content = mess.Content,
-                            ShipmentNumber = mess.ShipmentNumber,
-                            Status = mess.Status == true ? "Tak" : "Nie"
-                        });
+                    if (mess.UserType.Contains(text) || mess.Content.Contains(text) || mess.ShipmentNumber.ToString().Contains(text))
+                    {
+                        messagesViews.Add(
+                            new MessageView
+                            {
+                                UserType = mess.UserType,
+                                Content = mess.Content,
+                                ShipmentNumber = mess.ShipmentNumber,
+                                Status = mess.Status == true ? "Tak" : "Nie"
+                            });
+                    }
                 }
             }
             ListViewMessages.ItemsSource = messagesViews;
@@ -121,6 +125,12 @@ namespace CourierSystem.Views
             AdminPanel window = new AdminPanel();
             window.Show();
             this.Close();
+        }
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            String text = SearchMessage.Text;
+            RefreshMessageListView(text);
         }
     }
 }

@@ -58,15 +58,20 @@ namespace CourierSystem.Views
             this.Background = myBrush;
         }
 
-        private void RefreshShipmentListView(String contains)
+        private void RefreshShipmentListView(String contains1)
         {
             shipmentsViews = new List<ShipmentCourierView>();
             Couriershipments = new List<Shipment>();
             shipments = DB.GetShipmentsWithOtherTables();
             statuses = DB.GetStatuses();
+            String contains = contains1.ToLower();
             foreach (var ship in shipments)
             {
-                if (ship.CourierID == user.Id && ship.ShipmentNumber.ToString().Contains(contains))
+                if (ship.CourierID == user.Id && (ship.ShipmentNumber.ToString().Contains(contains)
+                    || ship.Status.Status.ToLower().Contains(contains) || 
+                    (ship.Sender.FirstName + " " + ship.Sender.LastName + ", " + ship.Sender.Address + ", " + ship.Sender.PhoneNumber).ToLower().Contains(contains)
+                    || (ship.Recipient.FirstName + " " + ship.Recipient.LastName + ", " + ship.Recipient.Address + ", " + ship.Recipient.PhoneNumber).ToLower().Contains(contains)
+                    || ship.Size.ToString().ToLower().Contains(contains)))
                 {
                     if (ship.Status.Id != 8)
                         Couriershipments.Add(ship);

@@ -18,7 +18,7 @@ namespace CourierSystem.Data
     public static class DB
     {
         private static DBContext _context;
-        private const string ConnectionString = @"Data Source=(localdb)\mssqllocaldb;Database=CourierDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
 
         public static DBContext GetInstance()

@@ -9,6 +9,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="5,5,5,5" >
@@ -25,6 +26,7 @@
                 <Button Content="Powrót" Click="Return_Click" MinWidth="80" MinHeight="30"/>
             </StackPanel>
         </Grid>
+        <TextBox Name="SearchMessage" Grid.Row="1" FontSize="24" TextChanged="SearchBox_TextChanged" ></TextBox>
         <!--<ComboBox>
             <ComboBoxItem>
                 <StackPanel Orientation="Horizontal">
@@ -39,7 +41,7 @@
                 </StackPanel>
             </ComboBoxItem>
         </ComboBox>-->
-        <ListView Grid.Row="1" Margin="5" Name="ListViewMessages" SelectionChanged="ListViewMessage_ItemClicked" Opacity="1">
+        <ListView Grid.Row="2" Margin="5" Name="ListViewMessages" SelectionChanged="ListViewMessage_ItemClicked" Opacity="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Wiadmość jako" DisplayMemberBinding="{Binding UserType}" Width="100"/>

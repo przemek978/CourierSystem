@@ -42,26 +42,31 @@ namespace CourierSystem.Views
             myBrush.ImageSource =
                 new BitmapImage(new Uri("../../../Background.jpg", UriKind.Relative));
             this.Background = myBrush;
-            RefreshCourierListView();
+            RefreshCourierListView("");
         }
 
-        public void RefreshCourierListView()
+        public void RefreshCourierListView(String content1)
         {
             couriersViews = new List<CourierView>();
             couriers = DB.GetCouriers();
-            int count;
+            int count = 0;
+            String content = content1.ToLower();
             foreach (var courier in couriers)
             {
                 count = DB.CountCourierShipments(courier.Id);
-                couriersViews.Add(
-                    new CourierView
-                    {
-                        Id = courier.Id,
-                        Name = courier.Name,
-                        Username = courier.Username,
-                        Role = courier.Role,
-                        ShipmentsCount = count
-                    });
+                if (courier.Id.ToString().ToLower().Contains(content) || courier.Name.ToLower().Contains(content) || courier.Username.ToLower().Contains(content)
+                    || courier.Role.ToLower().Contains(content) || count.ToString().Contains(content))
+                {
+                    couriersViews.Add(
+                        new CourierView
+                        {
+                            Id = courier.Id,
+                            Name = courier.Name,
+                            Username = courier.Username,
+                            Role = courier.Role,
+                            ShipmentsCount = count
+                        });
+                }
             }
             ListViewCourier.ItemsSource = couriersViews;
             ListViewCourier.Items.Refresh();
@@ -130,7 +135,7 @@ namespace CourierSystem.Views
                         {
                             DB.DeleteCourier(courierToChange);
                             MessageBox.Show("Usunięto pomyślnie");
-                            RefreshCourierListView();
+                            RefreshCourierListView("");
                         }
                     }
                 }
@@ -148,5 +153,12 @@ namespace CourierSystem.Views
             window.Show();
             this.Close();
         }
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            String text = SearchCourier.Text;
+            RefreshCourierListView(text);
+        }
+
     }
 }

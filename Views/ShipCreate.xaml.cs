@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CourierSystem.Data;
 using Microsoft.IdentityModel.Tokens;
+using System.Text.RegularExpressions;
 
 namespace CourierSystem.Views
 {
@@ -26,7 +27,10 @@ namespace CourierSystem.Views
         private Person recipient { get; set; }
         private Person sender { get; set; }
         private Courier courier { get; set; }
+        private bool isSetSender { get; set; } = false;
+        private bool isSetRecipient { get; set; } = false;
         private char size { get; set; }
+        private string numberPattern = @"^\d{9}$";
         public ShipCreate()
         {
             InitializeComponent();
@@ -42,24 +46,23 @@ namespace CourierSystem.Views
         {
             if (CheckValidation())
             {
-                Person r = DB.SearchPerson(recipient.PhoneNumber);
-                if (r == null)
+                if (!isSetRecipient)
                 {
                     DB.AddPerson(recipient);
                 }
-                else
+/*                else
                 {
-                    recipient = r;
-                }
-                Person s = DB.SearchPerson(this.sender.PhoneNumber);
-                if (s == null)
+                    recipient = DB.SearchPerson(Int32.Parse(SearchRecipientNumber.Text));
+                }*/
+                MessageBox.Show(recipient.Id + " " + recipient.LastName + " " + recipient.PhoneNumber);
+                if (!isSetSender)
                 {
                     DB.AddPerson(this.sender);
                 }
-                else
+/*                else
                 {
-                    this.sender = s;
-                }
+                    this.sender= DB.SearchPerson(Int32.Parse(SearchSenderNumber.Text));
+                }*/
                 Shipment shipment = new Shipment
                 {
                     ShipmentNumber = Shipment.GenerateTrackingNumber(),
@@ -82,6 +85,63 @@ namespace CourierSystem.Views
             this.Close();
         }
 
+        private void SearchSenderButton_Click(object sender, RoutedEventArgs e) 
+        {
+
+            bool isValidNumber = Regex.IsMatch(SearchSenderNumber.Text, numberPattern);
+            if (!isValidNumber)
+            {
+                MessageBox.Show("Nieprawidłowy numer! (9 cyfr)");
+            }
+            else
+            {
+                Person s = DB.SearchPerson(Int32.Parse(SearchSenderNumber.Text));
+                if (s == null)
+                {
+                    MessageBox.Show("Nie znaleziono osoby z numerem " + SearchSenderNumber.Text + ".");
+                    isSetSender = false;
+                }
+                else
+                {
+                    MessageBox.Show("Ustawiono osobę jako nadawcę:\n " + s.FirstName+" "+s.LastName);
+                    this.sender = DB.SearchPerson(Int32.Parse(SearchSenderNumber.Text)); 
+                    isSetSender = true;
+                    SenderNumber.Text = this.sender.PhoneNumber.ToString();
+                    SenderAddress.Text = this.sender.Address;
+                    SenderFirstName.Text = this.sender.FirstName;
+                    SenderLastName.Text = this.sender.LastName;
+                }
+            }
+        }
+
+        private void SearchRecipientButton_Click(object sender, RoutedEventArgs e) 
+        {
+            bool isValidNumber = Regex.IsMatch(SearchRecipientNumber.Text, numberPattern);
+            if (!isValidNumber)
+            {
+                MessageBox.Show("Nieprawidłowy numer! (9 cyfr)");
+            }
+            else
+            {
+                Person r = DB.SearchPerson(Int32.Parse(SearchRecipientNumber.Text));
+                if (r == null)
+                {
+                    MessageBox.Show("Nie znaleziono osoby z numerem "+ SearchRecipientNumber.Text+".");
+                    isSetRecipient = false;
+                }
+                else
+                {
+                    MessageBox.Show("Ustawiono osobę jako odbiorcę - " + r.FirstName + " " + r.LastName);
+                    recipient = DB.SearchPerson(Int32.Parse(SearchRecipientNumber.Text));
+                    isSetRecipient = true;
+                    RecipientNumber.Text = r.PhoneNumber.ToString();
+                    RecipientAddress.Text = r.Address;
+                    RecipientFirstName.Text = r.FirstName;
+                    RecipientLastName.Text = r.LastName;
+                }
+            }
+        }
+
         private bool CheckValidation()
         {
             recipient = new Person(); 
@@ -89,78 +149,86 @@ namespace CourierSystem.Views
             string message = "";
             int parsedNumber;
             bool IsValid = true;
-            if (int.TryParse(RecipientNumber.Text, out parsedNumber) && RecipientNumber.Text.Length == 9)
+            if(!isSetRecipient)
             {
-                recipient.PhoneNumber = parsedNumber;
+                if (int.TryParse(RecipientNumber.Text, out parsedNumber) && RecipientNumber.Text.Length == 9)
+                {
+                    recipient.PhoneNumber = parsedNumber;
+                }
+                else
+                {
+                    message += "Telefon odbiorcy nie prawidłowy, musi się składać wyłącznie z 9 cyfr\n";
+                    IsValid = false;
+                }
+                if (RecipientFirstName.Text.IsNullOrEmpty())
+                {
+                    message += "Pole imię odbiorcy jest wymagane\n";
+                    IsValid = false;
+                }
+                else
+                {
+                    recipient.FirstName = RecipientFirstName.Text;
+                }
+                if (RecipientLastName.Text.IsNullOrEmpty())
+                {
+                    message += "Pole nazwisko odbiorcy jest wymagane\n";
+                    IsValid = false;
+                }
+                else
+                {
+                    recipient.LastName = RecipientLastName.Text;
+                }
+                if (RecipientAddress.Text.IsNullOrEmpty())
+                {
+                    message += "Pole adres odbiorcy jest wymagane\n";
+                    IsValid = false;
+                }
+                else
+                {
+                    recipient.Address = RecipientAddress.Text;
+                }
             }
-            else
+            if (!isSetSender)
             {
-                message += "Telefon odbiorcy nie prawidłowy, musi się składać wyłącznie z 9 cyfr\n";
-                IsValid = false;
+                if (int.TryParse(SenderNumber.Text, out parsedNumber) && SenderNumber.Text.Length == 9)
+                {
+                    sender.PhoneNumber = parsedNumber;
+                }
+                else
+                {
+                    message += "Telefon nadawcy nie prawidłowy, musi się składać wyłącznie z 9 cyfr\n";
+                    IsValid = false;
+                }
+                if (SenderFirstName.Text.IsNullOrEmpty())
+                {
+                    message += "Pole imię nadawcy jest wymagane\n";
+                    IsValid = false;
+                }
+                else
+                {
+                    sender.FirstName = SenderFirstName.Text;
+                }
+                if (SenderLastName.Text.IsNullOrEmpty())
+                {
+                    message += "Pole nazwisko nadawcy jest wymagane\n";
+                    IsValid = false;
+                }
+                else
+                {
+                    sender.LastName = SenderLastName.Text;
+                }
+                if (SenderAddress.Text.IsNullOrEmpty())
+                {
+                    message += "Pole adres nadawcy jest wymagane\n";
+                    IsValid = false;
+                }
+                else
+                {
+                    sender.Address = SenderAddress.Text;
+                }
             }
-            if (int.TryParse(SenderNumber.Text, out parsedNumber) && SenderNumber.Text.Length == 9)
-            {
-                sender.PhoneNumber = parsedNumber;
-            }
-            else
-            {
-                message += "Telefon nadawcy nie prawidłowy, musi się składać wyłącznie z 9 cyfr\n";
-                IsValid = false;
-            }
-            if (SenderFirstName.Text.IsNullOrEmpty() )
-            {
-                message += "Pole imię nadawcy jest wymagane\n";
-                IsValid = false;
-            }
-            else
-            {
-                sender.FirstName = SenderFirstName.Text;
-            }
-            if (SenderLastName.Text.IsNullOrEmpty())
-            {
-                message += "Pole nazwisko nadawcy jest wymagane\n";
-                IsValid = false;
-            }
-            else
-            {
-                sender.LastName = SenderLastName.Text;
-            }
-            if (SenderAddress.Text.IsNullOrEmpty())
-            {
-                message += "Pole adres nadawcy jest wymagane\n";
-                IsValid = false;
-            }
-            else
-            {
-                sender.Address = SenderAddress.Text;
-            }
-            if (RecipientFirstName.Text.IsNullOrEmpty())
-            {
-                message += "Pole imię odbiorcy jest wymagane\n";
-                IsValid = false;
-            }
-            else
-            {
-                recipient.FirstName = RecipientFirstName.Text;
-            }
-            if (RecipientLastName.Text.IsNullOrEmpty())
-            {
-                message += "Pole nazwisko odbiorcy jest wymagane\n";
-                IsValid = false;
-            }
-            else
-            {
-                recipient.LastName = RecipientLastName.Text;
-            }
-            if (RecipientAddress.Text.IsNullOrEmpty())
-            {
-                message += "Pole adres odbiorcy jest wymagane\n";
-                IsValid = false;
-            }
-            else
-            {
-                recipient.Address = RecipientAddress.Text;
-            }
+            
+            
             if (PickCourier.SelectedIndex>=0)
             {
                 courier = couriers.FirstOrDefault(c => c.Id == PickCourier.SelectedIndex+1);

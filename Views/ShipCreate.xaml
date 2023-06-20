@@ -5,14 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourierSystem.Views"
         mc:Ignorable="d"
-        Title="Nadaj przesyłkę" Height="520" Width="800">
-    <Window.Resources>
-        <!-- One style for each *type* of control on the window -->
-        <Style TargetType="TextBox">
-            <Setter Property="Margin" Value="10"/>
-        </Style>
-
-    </Window.Resources>
+        Title="Nadaj przesyłkę" Height="700" Width="800">
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
             <GroupBox  Margin="5" Header="Wybierz rozmiar paczki:">
@@ -23,7 +16,17 @@
                 </DockPanel>
             </GroupBox>
         </DockPanel>
-        <GroupBox DockPanel.Dock="Top" Margin="5" Header="Wpisz dane odbiorcy:">
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.7*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" VerticalContentAlignment="Center" Margin="5" >Wyszukaj odbiorcę po numerze telefonu:</Label>
+            <TextBox Grid.Column="1"  Margin="5" Name="SearchRecipientNumber"/>
+            <Button Grid.Column="2" Content="Wyszukaj" Click="SearchRecipientButton_Click" MinWidth="70" MinHeight="30"/>
+        </Grid>
+        <GroupBox DockPanel.Dock="Top" Margin="5" Header="Lub wpisz dane odbiorcy:">
             <Grid>
                 <Grid.ColumnDefinitions >
                     <ColumnDefinition Width="*"/>
@@ -34,7 +37,6 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
-
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center" Margin="5" >Imię:</Label>
                 <TextBox Grid.Column="0"  Grid.Row="1"  Margin="5" Name="RecipientFirstName"/>
@@ -46,7 +48,17 @@
                 <TextBox Grid.Column="1"  Grid.Row="3"  Margin="5" Name="RecipientNumber"/>
             </Grid>
         </GroupBox>
-        <GroupBox DockPanel.Dock="Top" Margin="5" Header="Wpisz dane nadawcy:">
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.7*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"  VerticalContentAlignment="Center" Margin="5" >Wyszukaj nadawcę po numerze telefonu:</Label>
+            <TextBox Grid.Column="1" Margin="5" Name="SearchSenderNumber"/>
+            <Button Grid.Column="2" Content="Wyszukaj" Click="SearchSenderButton_Click" MinWidth="70" MinHeight="30"/>
+        </Grid>
+        <GroupBox DockPanel.Dock="Top" Margin="5" Header="Lub wpisz dane nadawcy:">
             <Grid>
                 <Grid.ColumnDefinitions >
                     <ColumnDefinition Width="*"/>

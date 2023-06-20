@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using CourierSystem.Data;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.RegularExpressions;
+using Org.BouncyCastle.Cms;
 
 namespace CourierSystem.Views
 {
@@ -50,19 +51,10 @@ namespace CourierSystem.Views
                 {
                     DB.AddPerson(recipient);
                 }
-/*                else
-                {
-                    recipient = DB.SearchPerson(Int32.Parse(SearchRecipientNumber.Text));
-                }*/
-                MessageBox.Show(recipient.Id + " " + recipient.LastName + " " + recipient.PhoneNumber);
                 if (!isSetSender)
                 {
                     DB.AddPerson(this.sender);
                 }
-/*                else
-                {
-                    this.sender= DB.SearchPerson(Int32.Parse(SearchSenderNumber.Text));
-                }*/
                 Shipment shipment = new Shipment
                 {
                     ShipmentNumber = Shipment.GenerateTrackingNumber(),
@@ -74,6 +66,8 @@ namespace CourierSystem.Views
                 };
                 DB.AddShipment(shipment);
                 MessageBox.Show("Dane o przesyłce przyjęte");
+                AdminPanel adminPanel = new AdminPanel();
+                adminPanel.Show();
                 Close();
             }
         }
@@ -132,7 +126,7 @@ namespace CourierSystem.Views
                 else
                 {
                     MessageBox.Show("Ustawiono osobę jako odbiorcę - " + r.FirstName + " " + r.LastName);
-                    recipient = DB.SearchPerson(Int32.Parse(SearchRecipientNumber.Text));
+                    recipient = r;
                     isSetRecipient = true;
                     RecipientNumber.Text = r.PhoneNumber.ToString();
                     RecipientAddress.Text = r.Address;
@@ -144,22 +138,32 @@ namespace CourierSystem.Views
 
         private bool CheckValidation()
         {
-            recipient = new Person(); 
-            sender = new Person(); 
             string message = "";
             int parsedNumber;
             bool IsValid = true;
             if(!isSetRecipient)
             {
+                recipient = new Person();
                 if (int.TryParse(RecipientNumber.Text, out parsedNumber) && RecipientNumber.Text.Length == 9)
                 {
                     recipient.PhoneNumber = parsedNumber;
+                    Person r = DB.SearchPerson(parsedNumber);
+                    if (r != null)
+                    {
+                        recipient = r;
+                        isSetRecipient = true;
+                        RecipientAddress.Text = r.Address;
+                        RecipientFirstName.Text = r.FirstName;
+                        RecipientLastName.Text = r.LastName;
+                        MessageBox.Show("Znaleziono osobę z numerem "+ parsedNumber+" i przypisano ją jako odbiorcę");
+                    }
                 }
                 else
                 {
                     message += "Telefon odbiorcy nie prawidłowy, musi się składać wyłącznie z 9 cyfr\n";
                     IsValid = false;
                 }
+                
                 if (RecipientFirstName.Text.IsNullOrEmpty())
                 {
                     message += "Pole imię odbiorcy jest wymagane\n";
@@ -190,9 +194,20 @@ namespace CourierSystem.Views
             }
             if (!isSetSender)
             {
+                sender = new Person();
                 if (int.TryParse(SenderNumber.Text, out parsedNumber) && SenderNumber.Text.Length == 9)
                 {
                     sender.PhoneNumber = parsedNumber;
+                    Person s = DB.SearchPerson(parsedNumber);
+                    if (s != null)
+                    {
+                        this.sender = s;
+                        isSetSender = true;
+                        SenderAddress.Text = s.Address;
+                        SenderFirstName.Text = s.FirstName;
+                        SenderLastName.Text = s.LastName;
+                        MessageBox.Show("Znaleziono osobę z numerem " + parsedNumber + " i przypisano ją jako nadawcę");
+                    }
                 }
                 else
                 {

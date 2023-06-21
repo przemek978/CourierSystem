@@ -19,7 +19,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Column="0">
                 <TextBlock Text="Pokazuj zamkniete" Margin="5" FontSize="18" />
-                <CheckBox Margin="5,5,5,10" HorizontalAlignment="Center" Checked="Closed_Checked" Unchecked="Closed_Unchecked" IsChecked="True" VerticalAlignment="Center"/>
+                <CheckBox Margin="5,7,5,10" HorizontalAlignment="Center" Checked="Closed_Checked" Unchecked="Closed_Unchecked" IsChecked="True" VerticalAlignment="Center"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button x:Name="StatusButton" Content="Zmień status" Click="StatusButton_Click"/>
@@ -27,20 +27,7 @@
             </StackPanel>
         </Grid>
         <TextBox Name="SearchMessage" Grid.Row="1" FontSize="24" TextChanged="SearchBox_TextChanged" ></TextBox>
-        <!--<ComboBox>
-            <ComboBoxItem>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Otwarte" Margin="5"/>
-                    <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </StackPanel>
-            </ComboBoxItem>
-            <ComboBoxItem>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Zamknięte" Margin="5"/>
-                    <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </StackPanel>
-            </ComboBoxItem>
-        </ComboBox>-->
+
         <ListView Grid.Row="2" Margin="5" Name="ListViewMessages" SelectionChanged="ListViewMessage_ItemClicked" Opacity="1">
             <ListView.View>
                 <GridView>

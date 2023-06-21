@@ -26,7 +26,6 @@
                 <PasswordBox x:Name="password" FontSize="20" Width="250" Opacity="0.8"/>
                 <iconPacks:PackIconMaterial Kind="FormTextboxPassword"  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" />
             </StackPanel>
-            <!--<PasswordBox x:Name="password" Grid.Column="1" Width="auto" FontSize="15"/>-->
             <Button x:Name="LoginButton" Grid.Column="1" Content="Zaloguj" FontSize="20" Click="LoginButton_Click" />
             <Button Grid.Column="1" Content="Powrót" FontSize="20" Click="ReturnButton_Click" />
         </StackPanel>

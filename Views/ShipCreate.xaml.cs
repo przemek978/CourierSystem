@@ -30,6 +30,9 @@ namespace CourierSystem.Views
         private Courier courier { get; set; }
         private bool isSetSender { get; set; } = false;
         private bool isSetRecipient { get; set; } = false;
+        private bool isCheckedRecipient { get; set; } = false;
+        private bool isCheckedSender { get; set; } = false;
+
         private char size { get; set; }
         private string numberPattern = @"^\d{9}$";
         public ShipCreate()
@@ -94,6 +97,15 @@ namespace CourierSystem.Views
                 {
                     MessageBox.Show("Nie znaleziono osoby z numerem " + SearchSenderNumber.Text + ".");
                     isSetSender = false;
+                    isCheckedSender = true;
+                    SenderAddress.Text = "";
+                    SenderFirstName.Text = "";
+                    SenderLastName.Text = "";
+                    if (FormWindow.Height < 701)
+                    {
+                        FormWindow.Height = FormWindow.Height + 200;
+                    }
+                     
                     SenderPanel.Visibility = Visibility.Visible;
                 }
                 else
@@ -101,11 +113,15 @@ namespace CourierSystem.Views
                     MessageBox.Show("Ustawiono osobę jako nadawcę:\n " + s.FirstName+" "+s.LastName);
                     this.sender = DB.SearchPerson(Int32.Parse(SearchSenderNumber.Text)); 
                     isSetSender = true;
-                    SenderNumber.Text = this.sender.PhoneNumber.ToString();
+                    isCheckedSender = true;
+                    SenderPanel.Visibility = Visibility.Collapsed;
+                    if (FormWindow.Height > 300)
+                    {
+                        FormWindow.Height = FormWindow.Height - 200;
+                    }
                     SenderAddress.Text = this.sender.Address;
                     SenderFirstName.Text = this.sender.FirstName;
                     SenderLastName.Text = this.sender.LastName;
-                    SenderPanel.Visibility = Visibility.Collapsed;
                 }
             }
         }
@@ -124,130 +140,150 @@ namespace CourierSystem.Views
                 {
                     MessageBox.Show("Nie znaleziono osoby z numerem "+ SearchRecipientNumber.Text+".");
                     isSetRecipient = false;
+                    isCheckedRecipient = true;
+                    RecipientAddress.Text = "";
+                    RecipientFirstName.Text = "";
+                    RecipientLastName.Text = "";
+                    if (FormWindow.Height < 701)
+                    {
+                        FormWindow.Height = FormWindow.Height + 200;
+                    }
                     RecipientPanel.Visibility = Visibility.Visible;
+                    
                 }
                 else
                 {
                     MessageBox.Show("Ustawiono osobę jako odbiorcę - " + r.FirstName + " " + r.LastName);
                     recipient = r;
                     isSetRecipient = true;
-                    RecipientNumber.Text = r.PhoneNumber.ToString();
+                    isCheckedRecipient = true;
+                    RecipientPanel.Visibility = Visibility.Collapsed;
+                    if (FormWindow.Height > 300)
+                    {
+                        FormWindow.Height = FormWindow.Height - 200;
+                    }
                     RecipientAddress.Text = r.Address;
                     RecipientFirstName.Text = r.FirstName;
                     RecipientLastName.Text = r.LastName;
-                    RecipientPanel.Visibility = Visibility.Collapsed;
+
                 }
+            }
+        }
+
+        private void SearchRecipientNumber_TextChanged(object sender, TextChangedEventArgs e) { 
+            isCheckedRecipient = false; 
+            RecipientPanel.Visibility = Visibility.Collapsed;
+            if (FormWindow.Height > 300)
+            {
+                FormWindow.Height = FormWindow.Height - 200;
+            }
+        }
+        private void SearchSenderNumber_TextChanged(object sender, TextChangedEventArgs e) { 
+            isCheckedSender = false; 
+            SenderPanel.Visibility = Visibility.Collapsed;
+            if (FormWindow.Height > 300)
+            {
+                FormWindow.Height = FormWindow.Height - 200;
             }
         }
 
         private bool CheckValidation()
         {
             string message = "";
-            int parsedNumber;
             bool IsValid = true;
-            if(!isSetRecipient)
+
+            if (isCheckedRecipient)
             {
-                recipient = new Person();
-                if (int.TryParse(RecipientNumber.Text, out parsedNumber) && RecipientNumber.Text.Length == 9)
+                if(!isSetRecipient)
                 {
-                    recipient.PhoneNumber = parsedNumber;
-                    Person r = DB.SearchPerson(parsedNumber);
-                    if (r != null)
+                    recipient = new Person();
+                    bool isValidNumber = Regex.IsMatch(SearchRecipientNumber.Text, numberPattern);
+                    if (isValidNumber)
                     {
-                        recipient = r;
-                        isSetRecipient = true;
-                        RecipientAddress.Text = r.Address;
-                        RecipientFirstName.Text = r.FirstName;
-                        RecipientLastName.Text = r.LastName;
-                        MessageBox.Show("Znaleziono osobę z numerem "+ parsedNumber+" i przypisano ją jako odbiorcę");
+                        recipient.PhoneNumber = Int32.Parse(SearchRecipientNumber.Text);
+                    }
+                    else
+                    {
+                        message += "Telefon odbiorcy nie prawidłowy, musi się składać wyłącznie z 9 cyfr\n";
+                        IsValid = false;
+                    }
+                    if (RecipientFirstName.Text.IsNullOrEmpty())
+                    {
+                        message += "Pole imię odbiorcy jest wymagane\n";
+                        IsValid = false;
+                    }
+                    else
+                    {
+                        recipient.FirstName = RecipientFirstName.Text;
+                    }
+                    if (RecipientLastName.Text.IsNullOrEmpty())
+                    {
+                        message += "Pole nazwisko odbiorcy jest wymagane\n";
+                        IsValid = false;
+                    }
+                    else
+                    {
+                        recipient.LastName = RecipientLastName.Text;
+                    }
+                    if (RecipientAddress.Text.IsNullOrEmpty())
+                    {
+                        message += "Pole adres odbiorcy jest wymagane\n";
+                        IsValid = false;
+                    }
+                    else
+                    {
+                        recipient.Address = RecipientAddress.Text;
                     }
                 }
-                else
-                {
-                    message += "Telefon odbiorcy nie prawidłowy, musi się składać wyłącznie z 9 cyfr\n";
-                    IsValid = false;
-                }
-                
-                if (RecipientFirstName.Text.IsNullOrEmpty())
-                {
-                    message += "Pole imię odbiorcy jest wymagane\n";
-                    IsValid = false;
-                }
-                else
-                {
-                    recipient.FirstName = RecipientFirstName.Text;
-                }
-                if (RecipientLastName.Text.IsNullOrEmpty())
-                {
-                    message += "Pole nazwisko odbiorcy jest wymagane\n";
-                    IsValid = false;
-                }
-                else
-                {
-                    recipient.LastName = RecipientLastName.Text;
-                }
-                if (RecipientAddress.Text.IsNullOrEmpty())
-                {
-                    message += "Pole adres odbiorcy jest wymagane\n";
-                    IsValid = false;
-                }
-                else
-                {
-                    recipient.Address = RecipientAddress.Text;
-                }
             }
-            if (!isSetSender)
+            else { message += "Wyszukaj najpierw numer odbiorcy\n"; IsValid = false; }
+
+            if (isCheckedSender)
             {
-                sender = new Person();
-                if (int.TryParse(SenderNumber.Text, out parsedNumber) && SenderNumber.Text.Length == 9)
+                if (!isSetSender)
                 {
-                    sender.PhoneNumber = parsedNumber;
-                    Person s = DB.SearchPerson(parsedNumber);
-                    if (s != null)
+                    sender = new Person();
+                    bool isValidNumber = Regex.IsMatch(SearchSenderNumber.Text, numberPattern);
+                    if (isValidNumber)
                     {
-                        this.sender = s;
-                        isSetSender = true;
-                        SenderAddress.Text = s.Address;
-                        SenderFirstName.Text = s.FirstName;
-                        SenderLastName.Text = s.LastName;
-                        MessageBox.Show("Znaleziono osobę z numerem " + parsedNumber + " i przypisano ją jako nadawcę");
+                        sender.PhoneNumber = Int32.Parse(SearchSenderNumber.Text);
+                    }
+                    else
+                    {
+                        message += "Telefon nadawcy nie prawidłowy, musi się składać wyłącznie z 9 cyfr\n";
+                        IsValid = false;
+                    }
+                    if (SenderFirstName.Text.IsNullOrEmpty())
+                    {
+                        message += "Pole imię nadawcy jest wymagane\n";
+                        IsValid = false;
+                    }
+                    else
+                    {
+                        sender.FirstName = SenderFirstName.Text;
+                    }
+                    if (SenderLastName.Text.IsNullOrEmpty())
+                    {
+                        message += "Pole nazwisko nadawcy jest wymagane\n";
+                        IsValid = false;
+                    }
+                    else
+                    {
+                        sender.LastName = SenderLastName.Text;
+                    }
+                    if (SenderAddress.Text.IsNullOrEmpty())
+                    {
+                        message += "Pole adres nadawcy jest wymagane\n";
+                        IsValid = false;
+                    }
+                    else
+                    {
+                        sender.Address = SenderAddress.Text;
                     }
                 }
-                else
-                {
-                    message += "Telefon nadawcy nie prawidłowy, musi się składać wyłącznie z 9 cyfr\n";
-                    IsValid = false;
-                }
-                if (SenderFirstName.Text.IsNullOrEmpty())
-                {
-                    message += "Pole imię nadawcy jest wymagane\n";
-                    IsValid = false;
-                }
-                else
-                {
-                    sender.FirstName = SenderFirstName.Text;
-                }
-                if (SenderLastName.Text.IsNullOrEmpty())
-                {
-                    message += "Pole nazwisko nadawcy jest wymagane\n";
-                    IsValid = false;
-                }
-                else
-                {
-                    sender.LastName = SenderLastName.Text;
-                }
-                if (SenderAddress.Text.IsNullOrEmpty())
-                {
-                    message += "Pole adres nadawcy jest wymagane\n";
-                    IsValid = false;
-                }
-                else
-                {
-                    sender.Address = SenderAddress.Text;
-                }
             }
-            
-            
+            else { message += "Wyszukaj najpierw numer nadawcy\n"; IsValid = false; }
+
             if (PickCourier.SelectedIndex>=0)
             {
                 courier = couriers.FirstOrDefault(c => c.Id == PickCourier.SelectedIndex+1);
@@ -274,6 +310,11 @@ namespace CourierSystem.Views
                 IsValid = false;
                 message += "Wybierz rozmiar\n";
 
+            }
+            if(SearchRecipientNumber.Text == SearchSenderNumber.Text)
+            {
+                message += "Nadawca i odbiorca nie może być ten sam!";
+                IsValid = false;
             }
             if(!IsValid)MessageBox.Show(message);
             return IsValid;

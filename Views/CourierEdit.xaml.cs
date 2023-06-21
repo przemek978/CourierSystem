@@ -49,9 +49,9 @@ namespace CourierSystem.Views
                 {
                     courierToChange.Username = CourierUsername.Text;
                 }
-                if (!Password.Text.IsNullOrEmpty() && !ConfirmPassword.Text.IsNullOrEmpty())
+                if (!Password.Password.IsNullOrEmpty() && !ConfirmPassword.Password.IsNullOrEmpty())
                 {
-                    courierToChange.Password = Password.Text;
+                    courierToChange.Password = Password.Password;
                     courierToChange.PasswordHash();
                 }
                 DB.EditCourier(courierToChange);
@@ -79,12 +79,12 @@ namespace CourierSystem.Views
                     IsValid=false;
                 }
             }
-            if (Password.Text != ConfirmPassword.Text)
+            if (Password.Password != ConfirmPassword.Password)
             {
                 message += "Hasła muszą być takie same\n";
                 IsValid=false;
             }
-            if (Password.Text.Length > 0 && Password.Text.Length < 8)
+            if (Password.Password.Length > 0 && Password.Password.Length < 8)
             {
                 message += "Hasło jest za którkie\n";
                 IsValid = false;

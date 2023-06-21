@@ -41,11 +41,13 @@ namespace CourierSystem.Views
         {
             if (CheckValidation())
             {
-                courier = new Courier (CourierName.Text, CourierUsername.Text, "Kurier", Password.Text);
+                courier = new Courier (CourierName.Text, CourierUsername.Text, "Kurier", Password.Password);
                 courier.PasswordHash();
                 DB.AddCourier(courier);
                 MessageBox.Show("Kurier dodany pomyślnie");
-                Close();
+                CourierManagement courierManagement = new CourierManagement();
+                courierManagement.Show();
+                this.Close();
             }
         }
 
@@ -64,34 +66,25 @@ namespace CourierSystem.Views
             {
                 message += "Nazwa użytkownika jest za krótka(min. 4 litery)\n";
             }
-            if (DB.CheckUsername(CourierUsername.Text))
-            {
-            }
-            else
+            if (!DB.CheckUsername(CourierUsername.Text))
             {
                 message += "Nazwa użytkownika "+ CourierUsername.Text + " jest już zajęta\n";
                 IsValid = false;
             }
-            if (!CourierName.Text.IsNullOrEmpty())
-            {
-            }
-            else
+            if (CourierName.Text.IsNullOrEmpty())
             {
                 message += "Pole imię nie może być puste\n";
                 IsValid = false;
             }
-            if (Password.Text!=ConfirmPassword.Text)
+            if (Password.Password !=ConfirmPassword.Password)
             {
                 message += "Hasła muszą być takie same\n";
                 IsValid = false;
             }
-            if (Password.Text.IsNullOrEmpty() || ConfirmPassword.Text.IsNullOrEmpty())
+            if (Password.Password.IsNullOrEmpty() || ConfirmPassword.Password.IsNullOrEmpty())
             {
                 message += "Pole hasło jest wymagane\n";
                 IsValid = false;
-            }
-            else
-            {
             }
             if (!IsValid) MessageBox.Show(message);
             return IsValid;

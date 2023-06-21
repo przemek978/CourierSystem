@@ -68,6 +68,7 @@ namespace CourierSystem.Views
             shipments = DB.GetShipmentsWithOtherTables();
             statuses = DB.GetStatuses();
             String text = text1.ToLower();
+
             foreach (var ship in shipments)
             {
                 if (ship.ShipmentNumber.ToString().Contains(text)
@@ -89,7 +90,7 @@ namespace CourierSystem.Views
                         Size = ship.Size.ToString()
                     });
                 }
-                    
+
             }
 
             ListViewShipment.ItemsSource = shipmentsViews;
@@ -193,7 +194,7 @@ namespace CourierSystem.Views
 
         private void PrintButton_Click(object sender, RoutedEventArgs e)
         {
-            
+
             var pdfFilePath = Printer.GenerujListPrzewozowy(shipments, user);
             PrintDialog printDialog = new PrintDialog();
             printDialog.PageRangeSelection = PageRangeSelection.AllPages;

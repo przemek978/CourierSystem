@@ -5,24 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourierSystem.Views"
         mc:Ignorable="d"
-        Title="Lista przesyłek" Height="450" Width="1360">
+        Title="Lista przesyłek" Height="450" Width="1398" MinWidth="1398">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" >
+        <Grid Grid.Row="0"  Margin="0,5,5,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1.6*" />
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Margin="10,5,5,5" Text="Zmiana statusu przesyłki" FontSize="24" TextAlignment="Center" HorizontalAlignment="Left"/>
-            <ComboBox Grid.Column="1" x:Name="StatusCombo" Margin="0,5,20,5" ItemsSource="{Binding statuses}" DisplayMemberPath="Status" HorizontalAlignment="Stretch" ></ComboBox>
-            <Button Grid.Column="2" x:Name="StatusSubmit" Content="Potwierdz" Margin="0,5,5,5" MinWidth="100" MinHeight="30" Click="StatusSubmit_Click" HorizontalAlignment="Stretch"/>
-            <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,5,5">
+            <TextBlock Grid.Column="0" Margin="10,5,5,5" Text="Zmiana statusu przesyłki" FontSize="24" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <ComboBox Grid.Column="1" x:Name="StatusCombo" FontSize="20" Margin="0,5,20,5" ItemsSource="{Binding statuses}" DisplayMemberPath="Status"  SelectedIndex="0" HorizontalAlignment="Stretch"/>
+
+            <Button Grid.Column="2" x:Name="StatusSubmit" Content="Potwierdz"  MinWidth="100" MinHeight="30" Click="StatusSubmit_Click" HorizontalAlignment="Stretch"/>
+            <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" >
                 <Button Content="Drukuj Listę" Click="PrintButton_Click" MinWidth="130" MinHeight="30"/>
                 <Button Content="Edytuj" Click="EditButton_Click" MinWidth="80" MinHeight="30"/>
                 <Button Content="Usuń" Click="DeleteButton_Click" MinWidth="80" MinHeight="30"/>
@@ -33,12 +34,12 @@
         <ListView Grid.Row="2" Margin="5" Name="ListViewShipment" SelectionChanged="ListViewShipment_ItemClicked" Opacity="0.985">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Numer Przesyłki" DisplayMemberBinding="{Binding ShipmentNumber}" Width="110"/>
+                    <GridViewColumn Header="Numer Przesyłki" DisplayMemberBinding="{Binding ShipmentNumber}" Width="120"/>
                     <GridViewColumn Header="Odbiorca" DisplayMemberBinding="{Binding Recipient}" Width="400"/>
                     <GridViewColumn Header="Nadawca" DisplayMemberBinding="{Binding Sender}" Width="400"/>
                     <GridViewColumn Header="Kurier" DisplayMemberBinding="{Binding Courier}" Width="110"/>
                     <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="260"/>
-                    <GridViewColumn Header="Rozmiar" DisplayMemberBinding="{Binding Size }" Width="50"/>
+                    <GridViewColumn Header="Rozmiar" DisplayMemberBinding="{Binding Size }" Width="75"/>
                 </GridView>
             </ListView.View>
         </ListView>

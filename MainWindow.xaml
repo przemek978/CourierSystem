@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourierSystem"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Main Menu" Height="450" Width="800">
 
     <Grid>
-        <StackPanel Margin="0,100,0,100">
-            <Button FontSize="72" Click="Navigate_To_Login" >Logowanie do systemu
-            </Button>
-            <Button x:Name="Tracking" FontSize="72" Click="Tracking_Click">Śledzenie przesyłek</Button>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" FontSize="72" Click="Navigate_To_Login" >Logowanie do systemu</Button>
+        <Button Grid.Row="1" x:Name="Tracking" FontSize="72" Click="Tracking_Click">Śledzenie przesyłek</Button>
     </Grid>
 </Window>

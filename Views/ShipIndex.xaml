@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourierSystem.Views"
         mc:Ignorable="d"
-        Title="Lista przesyłek" Height="450" Width="1398" MinWidth="1398">
+        Title="Lista przesyłek" Height="450" Width="1400" MinWidth="1400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

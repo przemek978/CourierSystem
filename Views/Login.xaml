@@ -6,7 +6,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:CourierSystem.Views"
         mc:Ignorable="d"
-        Title="Login" Height="440" Width="460">
+        Title="Logowanie" Height="440" Width="460">
     
     <Grid>
         <Grid.RowDefinitions>

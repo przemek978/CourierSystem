@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourierSystem.Views"
         mc:Ignorable="d"
-        Title="CourierPanel" Height="450" Width="1288" MinWidth="1288">
+        Title="Panel Kuriera" Height="450" Width="1288" MinWidth="1288">
 
     <Grid>
         <Grid.RowDefinitions>

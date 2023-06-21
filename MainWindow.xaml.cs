@@ -29,10 +29,6 @@ namespace CourierSystem
             myBrush.ImageSource =
                 new BitmapImage(new Uri("../../../Background.jpg", UriKind.Relative));
             this.Background = myBrush;
-            //Window window = new CourierPanel(DB.GetCouriers()[0]);
-            //Window window = new ShipIndex(DB.GetInstance().Users.ToList()[3]);
-            //window.Show();
-            //this.Close();
         }
 
         private void Tracking_Click(object sender, RoutedEventArgs e)

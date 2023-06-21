@@ -5,25 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourierSystem.Views"
         mc:Ignorable="d"
-        Title="AdminPanel" Height="440" Width="460">
+        Title="Panel Administratora" Height="440" Width="460">
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="1" Grid.Row="1">
-            <Button x:Name="AddShipment" Content="Nadaj przesyłkę" FontSize="20" Margin="0,10,0,10" Click="ShipAdd_Click"/>
-            <Button x:Name="ShipMange" Content="Zarządzaj przesyłkami" FontSize="20" Margin="0,10,0,10" Click="ShipMange_Click"/>
-            <Button Content="Zarządzaj kurierami" FontSize="20" Margin="0,10,0,10" Click="CourierManage_Click"/>
-            <Button x:Name="ProblemMange" Content="Zgłoszone problemy" FontSize="20" Margin="0,10,0,10" Click="ProblemMange_Click"/>
-            <Button Content="Wyloguj" FontSize="20" Background="Red" Margin="0,10,0,10" Click="Logout_Click"/>
-        </StackPanel>
+        <Button Grid.Row="0" x:Name="AddShipment" Content="Nadaj przesyłkę" FontSize="36" Click="ShipAdd_Click"/>
+        <Button Grid.Row="1" x:Name="ShipMange" Content="Zarządzaj przesyłkami" FontSize="36" Click="ShipMange_Click"/>
+        <Button Grid.Row="2" Content="Zarządzaj kurierami" FontSize="36" Click="CourierManage_Click"/>
+        <Button Grid.Row="3" x:Name="ProblemMange" Content="Zgłoszone problemy" FontSize="36" Click="ProblemMange_Click"/>
+        <Button Grid.Row="4" Content="Wyloguj" FontSize="36" Background="DarkRed"  Click="Logout_Click"/>
     </Grid>
 </Window>

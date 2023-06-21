@@ -94,6 +94,7 @@ namespace CourierSystem.Views
                 {
                     MessageBox.Show("Nie znaleziono osoby z numerem " + SearchSenderNumber.Text + ".");
                     isSetSender = false;
+                    SenderPanel.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -104,6 +105,7 @@ namespace CourierSystem.Views
                     SenderAddress.Text = this.sender.Address;
                     SenderFirstName.Text = this.sender.FirstName;
                     SenderLastName.Text = this.sender.LastName;
+                    SenderPanel.Visibility = Visibility.Collapsed;
                 }
             }
         }
@@ -122,6 +124,7 @@ namespace CourierSystem.Views
                 {
                     MessageBox.Show("Nie znaleziono osoby z numerem "+ SearchRecipientNumber.Text+".");
                     isSetRecipient = false;
+                    RecipientPanel.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -132,6 +135,7 @@ namespace CourierSystem.Views
                     RecipientAddress.Text = r.Address;
                     RecipientFirstName.Text = r.FirstName;
                     RecipientLastName.Text = r.LastName;
+                    RecipientPanel.Visibility = Visibility.Collapsed;
                 }
             }
         }

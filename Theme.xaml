@@ -6,7 +6,7 @@
     <Style TargetType="{x:Type Window}">
         <Setter Property="Background">
             <Setter.Value>
-                <ImageBrush ImageSource="C:\Users\Admin\Desktop\WPF\CourierSystem\Background.jpg" Stretch="UniformToFill"/>
+                <ImageBrush ImageSource="C:\Users\Admin\Desktop\CourierSystem-master\Background.jpg" Stretch="UniformToFill"/>
             </Setter.Value>
         </Setter>
     </Style>

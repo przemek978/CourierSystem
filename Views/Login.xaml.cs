@@ -68,19 +68,31 @@ namespace CourierSystem.Views
 
         private void textBox_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            elementsResize();
+
+        }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            elementsResize();
+        }
+
+        private void elementsResize()
+        {
            
-            var workingWidth = this.Width;
-            titleTextBlock.FontSize = Height * 0.08;
+            var workingWidth = this.ActualWidth;
+            var workingHeight = this.ActualHeight;
+            titleTextBlock.FontSize = workingHeight * 0.08;
             password.Width = workingWidth * 0.5;
-            password.FontSize = Height * 0.05;
-            password.Height = Height * 0.08;
+            password.FontSize = workingHeight * 0.05;
+            password.Height = workingHeight * 0.08;
             Username.Width = workingWidth * 0.5;
-            Username.FontSize = Height * 0.05;
-            Username.Height = Height * 0.08;
-            LoginButton.FontSize = this.Height * 0.05;
-            ReturnButton.FontSize = this.Height * 0.05;
-            loginTextBlock.FontSize = Height * 0.05;
-            passwordTextBlock.FontSize = Height * 0.05;
+            Username.FontSize = workingHeight * 0.05;
+            Username.Height = workingHeight * 0.08;
+            LoginButton.FontSize = workingHeight * 0.05;
+            ReturnButton.FontSize = workingHeight * 0.05;
+            loginTextBlock.FontSize = workingHeight * 0.05;
+            passwordTextBlock.FontSize = workingHeight * 0.05;
         }
     }
 }

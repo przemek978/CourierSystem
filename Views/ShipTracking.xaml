@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourierSystem.Views"
         mc:Ignorable="d"
-        Title="Śledzenie przesyłek" Height="610" Width="460" MinHeight="610" MinWidth="460">
+        Title="Śledzenie przesyłek" Height="640" Width="460" MinHeight="640" MinWidth="460" SizeChanged="textBox_SizeChanged" StateChanged="Window_StateChanged">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
@@ -35,11 +35,11 @@
                 <Button Grid.Column="1" Grid.Row="1" x:Name="ReturnButton" Content="Powrót" FontSize="24"  Click="Return_Click" Margin="0,0,0,10"/>
             </Grid>
         </Grid>
-        <Grid x:Name="InfoPanel" Visibility="Hidden"  Grid.Row="1">
+        <Grid x:Name="InfoPanel"   Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -47,10 +47,10 @@
             <TextBlock Grid.Row="0" x:Name="StatusText" Margin="0,0,0,0" FontSize="24" FontWeight="Bold" TextAlignment="Center"/>
             <TextBlock Grid.Row="1" x:Name="ResultText" FontSize="24"  TextAlignment="Center" TextWrapping="Wrap"/>
             <TextBlock Grid.Row="2" x:Name="Message" Margin="0,0,0,0" FontSize="24" FontWeight="Bold" TextAlignment="Center" Text="Jeżeli masz pytania wyślij do nas wiadomość" TextWrapping="Wrap"/>
-            <TextBox Grid.Row="3" x:Name="MessageText" FontSize="24" Height="80" TextAlignment="Center" TextWrapping="Wrap"/>
+            <TextBox Grid.Row="3" x:Name="MessageText" FontSize="24" TextAlignment="Center" TextWrapping="Wrap"/>
             <ComboBox Grid.Row="4" x:Name="UserTypeCombo" Margin="5">
-                <ComboBoxItem Content="Nadawca"/>
-                <ComboBoxItem Content="Odbiorca"/>
+                <ComboBoxItem x:Name="Nadawca" Content="Nadawca"/>
+                <ComboBoxItem x:Name="Odbiorca" Content="Odbiorca"/>
             </ComboBox>
             <Button Grid.Row="5" x:Name="SendButton" Content="Wyślij" FontSize="24"  Width="170" Margin="0,0,0,10" RenderTransformOrigin="0.529,0.603" Click="SendButton_Click"/>
         </Grid>

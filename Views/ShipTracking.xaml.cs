@@ -72,5 +72,27 @@ namespace CourierSystem.Views
             this.Close();
         }
 
+        private void textBox_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            elementsResize();
+            
+        }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            elementsResize();
+        }
+
+        private void elementsResize()
+        {
+            var workingWidth = this.ActualWidth;
+            MessageText.Height = ActualHeight * 0.12;
+            SearchButton.FontSize = ActualHeight * 0.03;
+            ReturnButton.FontSize = ActualHeight * 0.03;
+            UserTypeCombo.FontSize = ActualHeight * 0.03;
+            NumberTextBox.FontSize = ActualHeight * 0.03;
+            Message.FontSize = ActualHeight * 0.03;
+            SendButton.FontSize = ActualHeight * 0.03;
+        }
     }
 }

@@ -36,7 +36,7 @@ namespace CourierSystem.Views
             var user=DB.ValidateUser(Username.Text, password.Password);
             if (user == null)
             {
-                MessageBox.Show("Błędny email lub haslo");
+                MessageBox.Show("Błędna nazwa użytkownika lub haslo");
             }
             else
             {

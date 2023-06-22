@@ -35,7 +35,7 @@
                 <Button Grid.Column="1" Grid.Row="1" x:Name="ReturnButton" Content="Powrót" FontSize="24"  Click="Return_Click" Margin="0,0,0,10"/>
             </Grid>
         </Grid>
-        <Grid x:Name="InfoPanel"   Grid.Row="1">
+        <Grid x:Name="InfoPanel" Visibility="Hidden"  Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>

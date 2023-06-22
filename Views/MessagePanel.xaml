@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourierSystem.Views"
         mc:Ignorable="d"
-        Title="Panel problemów" Height="450" Width="785" MinWidth="785">
+        Title="Panel problemów" Height="400" Width="790" MinWidth="790" MinHeight="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -31,7 +31,7 @@
         <ListView Grid.Row="2" Margin="5" Name="ListViewMessages" SelectionChanged="ListViewMessage_ItemClicked" Opacity="1" SizeChanged="MessageListView_SizeChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Wiadmość jako" DisplayMemberBinding="{Binding UserType}" Width="100"/>
+                    <GridViewColumn Header="Wiadmość jako" DisplayMemberBinding="{Binding UserType}" Width="126"/>
                     <GridViewColumn Header="Treść" DisplayMemberBinding="{Binding Content}" Width="400"/>
                     <GridViewColumn Header="Numer Przesyłki" DisplayMemberBinding="{Binding ShipmentNumber}" Width="120"/>
                     <GridViewColumn Header="Czy odpowiedziano" DisplayMemberBinding="{Binding Status}" Width="130"/>

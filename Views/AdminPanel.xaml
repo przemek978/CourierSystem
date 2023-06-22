@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourierSystem.Views"
         mc:Ignorable="d"
-        Title="Panel Administratora" Height="440" Width="460">
+        Title="Panel Administratora" Height="440" Width="460" MinWidth="460" MinHeight="460">
     
     <Grid>
         <Grid.RowDefinitions>

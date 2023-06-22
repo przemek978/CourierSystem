@@ -90,7 +90,8 @@ namespace CourierSystem.Views
             SearchButton.FontSize = ActualHeight * 0.03;
             ReturnButton.FontSize = ActualHeight * 0.03;
             UserTypeCombo.FontSize = ActualHeight * 0.03;
-            NumberTextBox.FontSize = ActualHeight * 0.03;
+            NumberTextBox.FontSize = ActualHeight * 0.05;
+            NumberTextBox.Height = ActualHeight * 0.07;
             Message.FontSize = ActualHeight * 0.03;
             SendButton.FontSize = ActualHeight * 0.03;
         }

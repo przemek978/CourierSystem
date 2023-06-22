@@ -6,7 +6,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:CourierSystem.Views"
         mc:Ignorable="d"
-        Title="Logowanie" Height="440" Width="460">
+        Title="Logowanie" Height="440" Width="460" MinWidth="460" MinHeight="440" SizeChanged="textBox_SizeChanged">
     
     <Grid>
         <Grid.RowDefinitions>
@@ -14,20 +14,20 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Logowanie" TextAlignment="Center" FontWeight="Bold" FontSize="36" Margin="0,20,0,0"/>
+        <TextBlock x:Name="titleTextBlock" Grid.Row="0" Text="Logowanie" TextAlignment="Center" FontWeight="Bold" FontSize="36" Margin="0,20,0,0"/>
         <StackPanel Grid.Row="1">
-            <TextBlock Text="Login" TextAlignment="Center" FontSize="20" FontWeight="Bold"/>
+            <TextBlock x:Name="loginTextBlock" Text="Login" TextAlignment="Center" FontSize="20" FontWeight="Bold"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
                 <TextBox x:Name="Username" FontSize="20" Width="250" HorizontalAlignment="Left" Opacity="0.8"/>
                 <iconPacks:PackIconMaterial Kind="Account"  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
             </StackPanel>
-            <TextBlock Text="Hasło" TextAlignment="Center" FontSize="20" FontWeight="Bold" />
+            <TextBlock x:Name="passwordTextBlock" Text="Hasło" TextAlignment="Center" FontSize="20" FontWeight="Bold" />
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20" HorizontalAlignment="Center">
                 <PasswordBox x:Name="password" FontSize="20" Width="250" Opacity="0.8"/>
                 <iconPacks:PackIconMaterial Kind="FormTextboxPassword"  VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" />
             </StackPanel>
             <Button x:Name="LoginButton" Grid.Column="1" Content="Zaloguj" FontSize="20" Click="LoginButton_Click" />
-            <Button Grid.Column="1" Content="Powrót" FontSize="20" Click="ReturnButton_Click" />
+            <Button x:Name="ReturnButton" Grid.Column="1" Content="Powrót" FontSize="20" Click="ReturnButton_Click" />
         </StackPanel>
     </Grid>
 </Window>

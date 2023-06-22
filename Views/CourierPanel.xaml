@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourierSystem.Views"
         mc:Ignorable="d"
-        Title="Panel Kuriera" Height="450" Width="1288" MinWidth="1288">
+        Title="Panel Kuriera" Height="450" MinHeight="450" Width="1255" MinWidth="1255">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -32,7 +32,7 @@
             <Button Grid.Column="5" x:Name="Logout" Content="Wyloguj" MinWidth="100" MinHeight="30" Click="Logout_Click" HorizontalAlignment="Stretch"/>
         </Grid>
         <TextBox Name="SearchCourierShipment" Grid.Row="1" FontSize="24" TextChanged="SearchBox_TextChanged" ></TextBox>
-        <ListView Grid.Row="2" Name="ListViewCourierShipment" SelectionChanged="ListViewShipment_ItemClicked" Opacity="1">
+        <ListView Grid.Row="2" Name="ListViewCourierShipment" SelectionChanged="ListViewShipment_ItemClicked" Opacity="1" SizeChanged="ShipmentListView_SizeChanged">
             <ListView.View >
                 <GridView>
                     <GridViewColumn Header="Numer Przesyłki" DisplayMemberBinding="{Binding ShipmentNumber}" Width="120"/>

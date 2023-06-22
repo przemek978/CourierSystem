@@ -224,6 +224,27 @@ namespace CourierSystem.Views
             String text = SearchShipmentAdmin.Text;
             RefreshShipmentListView(text);
         }
+
+        private void ListView_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ListView listView = sender as ListView;
+            GridView gView = listView.View as GridView;
+
+            var workingWidth = listView.ActualWidth - SystemParameters.VerticalScrollBarWidth; // take into account vertical scrollbar
+            var col1 = 0.10;
+            var col2 = 0.30;
+            var col3 = 0.30;
+            var col4 = 0.10;
+            var col5 = 0.15;
+            var col6 = 0.05;
+
+            gView.Columns[0].Width = workingWidth * col1;
+            gView.Columns[1].Width = workingWidth * col2;
+            gView.Columns[2].Width = workingWidth * col3;
+            gView.Columns[3].Width = workingWidth * col4;
+            gView.Columns[4].Width = workingWidth * col5;
+            gView.Columns[5].Width = workingWidth * col6;
+        }
     }
 
 }

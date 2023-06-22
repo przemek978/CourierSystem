@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourierSystem.Views"
         mc:Ignorable="d"
-        Title="Zarządzanie kurierami" Height="450" Width="715" MinWidth="715">
+        Title="Zarządzanie kurierami" Height="450" MinHeight="450" Width="715" MinWidth="715">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -21,7 +21,7 @@
             </StackPanel>
         </Grid>
         <TextBox Name="SearchCourier" Grid.Row="1" FontSize="24" TextChanged="SearchBox_TextChanged" ></TextBox>
-        <ListView Grid.Row="2" Margin="5" Name="ListViewCourier" SelectionChanged="ListViewCourier_ItemClicked" Opacity="0.985">
+        <ListView Grid.Row="2" Margin="5" Name="ListViewCourier" SelectionChanged="ListViewCourier_ItemClicked" Opacity="0.985" SizeChanged="CourierListView_SizeChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id kuriera" DisplayMemberBinding="{Binding Id}" Width="100"/>

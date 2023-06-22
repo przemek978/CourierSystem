@@ -31,7 +31,7 @@
             </StackPanel>
         </Grid>
         <TextBox Name="SearchShipmentAdmin" Grid.Row="1" FontSize="24" TextChanged="SearchBox_TextChanged" ></TextBox>
-        <ListView Grid.Row="2" Margin="5" Name="ListViewShipment" SelectionChanged="ListViewShipment_ItemClicked" Opacity="0.985">
+        <ListView Grid.Row="2" Margin="5" Name="ListViewShipment" SelectionChanged="ListViewShipment_ItemClicked" Opacity="0.985" SizeChanged="ListView_SizeChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Numer Przesyłki" DisplayMemberBinding="{Binding ShipmentNumber}" Width="120"/>

@@ -100,12 +100,7 @@ namespace CourierSystem.Views
                     isCheckedSender = true;
                     SenderAddress.Text = "";
                     SenderFirstName.Text = "";
-                    SenderLastName.Text = "";
-                    if (FormWindow.Height < 701)
-                    {
-                        FormWindow.Height = FormWindow.Height + 200;
-                    }
-                     
+                    SenderLastName.Text = "";                     
                     SenderPanel.Visibility = Visibility.Visible;
                 }
                 else
@@ -115,10 +110,6 @@ namespace CourierSystem.Views
                     isSetSender = true;
                     isCheckedSender = true;
                     SenderPanel.Visibility = Visibility.Collapsed;
-                    if (FormWindow.Height > 300)
-                    {
-                        FormWindow.Height = FormWindow.Height - 200;
-                    }
                     SenderAddress.Text = this.sender.Address;
                     SenderFirstName.Text = this.sender.FirstName;
                     SenderLastName.Text = this.sender.LastName;
@@ -144,10 +135,6 @@ namespace CourierSystem.Views
                     RecipientAddress.Text = "";
                     RecipientFirstName.Text = "";
                     RecipientLastName.Text = "";
-                    if (FormWindow.Height < 701)
-                    {
-                        FormWindow.Height = FormWindow.Height + 200;
-                    }
                     RecipientPanel.Visibility = Visibility.Visible;
                     
                 }
@@ -158,10 +145,6 @@ namespace CourierSystem.Views
                     isSetRecipient = true;
                     isCheckedRecipient = true;
                     RecipientPanel.Visibility = Visibility.Collapsed;
-                    if (FormWindow.Height > 300)
-                    {
-                        FormWindow.Height = FormWindow.Height - 200;
-                    }
                     RecipientAddress.Text = r.Address;
                     RecipientFirstName.Text = r.FirstName;
                     RecipientLastName.Text = r.LastName;
@@ -173,18 +156,13 @@ namespace CourierSystem.Views
         private void SearchRecipientNumber_TextChanged(object sender, TextChangedEventArgs e) { 
             isCheckedRecipient = false; 
             RecipientPanel.Visibility = Visibility.Collapsed;
-            if (FormWindow.Height > 300)
-            {
-                FormWindow.Height = FormWindow.Height - 200;
-            }
+            FormWindow.SizeToContent = SizeToContent.Height;
         }
+
         private void SearchSenderNumber_TextChanged(object sender, TextChangedEventArgs e) { 
             isCheckedSender = false; 
             SenderPanel.Visibility = Visibility.Collapsed;
-            if (FormWindow.Height > 300)
-            {
-                FormWindow.Height = FormWindow.Height - 200;
-            }
+            FormWindow.SizeToContent = SizeToContent.Height;
         }
 
         private bool CheckValidation()

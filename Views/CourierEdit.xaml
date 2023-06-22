@@ -31,9 +31,9 @@
             </Grid>
         </GroupBox>
         <Grid DockPanel.Dock="Top" Margin="0 0 5 5">
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Zatwierdź" Click="ConfirmButton_Click" MinWidth="70" MinHeight="30" MaxHeight="60"/>
-                <Button Content="Anuluj" Click="CancelButton_Click" MinWidth="50" MinHeight="30" MaxHeight="60"/>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button Content="Zatwierdź" Click="ConfirmButton_Click" MinWidth="90" MinHeight="30" MaxHeight="60"/>
+                <Button Content="Anuluj" Click="CancelButton_Click" MinWidth="70" MinHeight="30" MaxHeight="60"/>
             </StackPanel>
         </Grid>
     </DockPanel>
